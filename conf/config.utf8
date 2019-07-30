@@ -1,0 +1,12 @@
+en_dict ../dictionary/data/en_dict.uft8
+cn_dict ../dictionary/data/cn_dict.utf8
+indexTable ../dictionary/data/index.utf8
+ip    192.168.4.194
+port  8888
+threadNum 10
+queueSize   20
+cacheFilePath ../data/Cache/Cache.utf8
+initTime 1
+intervalTime 10
+
+

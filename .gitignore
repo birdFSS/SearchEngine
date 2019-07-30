@@ -1,0 +1,13 @@
+
+*.o
+*.txt
+*.exe
+*.out
+*.i
+*.log
+*.tar.gz
+*.rar
+libs/
+core
+log/
+source/
