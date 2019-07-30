@@ -107,7 +107,7 @@ void RssReader::dump(const string& fileName, const string& offsetFile)
         doc_str = "<doc>\n\t<docid>" + to_string(i+1) + "</docid>\n\t<url>" 
                   + m_vRss[i].link + "</url>\n\t<title>"
                   + m_vRss[i].title + "</title>\n\t<content>"
-                  + m_vRss[i].content + "\n</content>\n</doc>\n";
+                  + m_vRss[i].content + "</content>\n</doc>\n";
 
         offset_str = to_string(i+1) + " " + to_string(ofs_doc.tellp()) + " "
                     + to_string(doc_str.size()) + "\n";

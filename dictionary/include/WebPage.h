@@ -6,7 +6,7 @@
 namespace wd
 {
 class Configuration;
-class CppJieba;
+class SplitTool;
 
 
 class WebPage
@@ -14,7 +14,7 @@ class WebPage
     friend bool operator==(const WebPage& lhs, const WebPage& rhs);
     friend bool operator<(const WebPage& lhs, const WebPage& rhs);
 public:
-    WebPage(std::string& doc, Configuration & config, CppJieba &  jieba);
+    WebPage(std::string& doc, Configuration & config, SplitTool & splitTool);
     ~WebPage() {}
 
     int getDocld();
@@ -23,7 +23,7 @@ public:
     std::map<std::string, int> & getWordsMap();
 
 private:
-    void processDoc(const std::string& doc, Configuration& config, CppJieba& jieba);
+    void processDoc(const std::string& doc, Configuration& config, SplitTool& splitTool);
     void calcTopK(std::vector<std::string> & wordsVec, int k, std::set<std::string> & stopWordList);
 
 private:

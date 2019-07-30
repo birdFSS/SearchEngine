@@ -42,6 +42,10 @@ public:
         return m_configMap;
     }
 
+    std::set<std::string> & getStopWordList()
+    {
+        return m_stopWordList;
+    }
 
 private:
     std::string getAbosolutePath(const std::string & fileName)
