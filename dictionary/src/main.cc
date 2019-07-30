@@ -32,8 +32,9 @@ void test3();
 
 int main()
 {
-    test0();
-    test1();
+    //test0();
+    //test1();
+    test2();
     return 0;
 }
 
@@ -60,16 +61,10 @@ void test1()
 
 void test2()
 {
-    tinyxml2::XMLDocument doc;
-    if(doc.LoadFile("../source/s1/coolshell.xml"))
-    {
-        logError("error load");
-        return ;
-    }
     RssReader myReader;
-    RssItem tmpItem;
-    myReader.parseRss("../source/s1/coolshell.xml");
-    myReader.dump("../data/test.lib", "../data/offset_test.lib");
+    myReader.parseRss("../source/s1/techweb.xml");
+    //myReader.parseRss("../source/s1/coolshell.xml");
+    myReader.dump("../data/test1.lib", "../data/offset_test1.lib");
 }
 
 //测试offset文件是否正确
