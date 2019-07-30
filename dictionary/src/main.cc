@@ -2,6 +2,8 @@
 #include "../include/DictProducer.h"
 #include "../include/CppJieba.h"
 #include "../include/IndexProducer.h"
+#include "../include/RssReader.h"
+#include "../include/Mylog.h"
 #include <iostream>
 #include <string>
 #include <algorithm>
@@ -12,9 +14,10 @@ using std::cin;
 using std::endl;
 using std::vector;
 using std::string;
+using namespace tinyxml2;
 
 
-const char * const ConfigFile = "../conf/config.utf8";
+const char * const ConfigFile = "../conf/myconf.conf";
 
 void test0()
 {
@@ -31,90 +34,32 @@ void test1()
 {
     //测试读取语料库文件的绝对位置
     wd::Configuration conf(ConfigFile);
-    auto confMap = conf.getConfigMap();
+    auto& confMap = conf.getConfigMap();
 
-    wd::DictProducer dict(confMap["en_dir"]);
-    wd::DictProducer CNdict(confMap["cn_dir"]);
+    wd::DictProducer sourcePath(confMap["sourcePath"]);
 
-    dict.showFilePath();
-    CNdict.showFilePath();
+    sourcePath.showFilePath();
 }
 
 void test2()
 {
-    //测试忽视的字词
-    wd::Configuration conf(ConfigFile);
-    auto confMap = conf.getConfigMap();
-
-    wd::DictProducer dict(confMap["en_dir"]);
-    wd::DictProducer CNdict(confMap["cn_dir"]);
-
-    dict.setIgnoreWords(confMap["en_ignore"]);
-    CNdict.setIgnoreWords(confMap["cn_ignore"]);
-    
-    //dict.showIgnoreWords();
-    CNdict.showIgnoreWords();
-}
-
-void test3()
-{
-    //测试中文分词，构建中文词典
-    std::shared_ptr<wd::SplitTool> pst(new wd::CppJieba());
-    wd::Configuration conf(ConfigFile);
-    auto confMap = conf.getConfigMap();
-
-    wd::DictProducer CNdict(confMap["cn_dir"], pst);
-    CNdict.setIgnoreWords(confMap["cn_ignore"]);
-    CNdict.buildCNDict();
-    CNdict.storeDict(confMap["cn_dict"]);
-}
-
-void test4()
-{
-    //构建英文词典
-    wd::Configuration conf(ConfigFile);
-    auto confMap = conf.getConfigMap();
-    
-    wd::DictProducer dict(confMap["en_dir"]);
-    dict.setIgnoreWords(confMap["en_ignore"]);
-    dict.buildDict();
-    //dict.showDict();
-    dict.storeDict(confMap["en_dict"]);
-
-    //测试构建索引
-    std::ofstream ofs("../data/index.utf8");
-    wd::IndexProducer indexPro;
-    indexPro.createIndex(dict, dict, ofs);
-
-}
-
-void test5()
-{
-    //测试中英文词典索引
-    wd::Configuration conf(ConfigFile);
-    auto confMap = conf.getConfigMap();
-    
-    wd::DictProducer dict(confMap["en_dir"]);
-    dict.setIgnoreWords(confMap["en_ignore"]);
-    dict.buildDict();
-
-    std::shared_ptr<wd::SplitTool> pst(new wd::CppJieba());
-    wd::DictProducer CNdict(confMap["cn_dir"], pst);
-    CNdict.setIgnoreWords(confMap["cn_ignore"]);
-    CNdict.buildCNDict();
-
-    //测试构建索引
-    std::ofstream ofs("../data/index.utf8");
-    wd::IndexProducer indexPro;
-    indexPro.createIndex(dict, CNdict, ofs);
-    
+    tinyxml2::XMLDocument doc;
+    if(doc.LoadFile("../source/coolshell.xml"))
+    {
+        logError("error load");
+        return ;
+    }
+    RssReader myReader;
+    RssItem tmpItem;
+    myReader.parseRss("../source/coolshell.xml");
+    myReader.dump("../data/test.lib");
 }
 
 int main()
 {
     //test3();  //中文词典测试
     //test4();  //英文词典测试
-    test5();
+    test2();
     return 0;
 }
 

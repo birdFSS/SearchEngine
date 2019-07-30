@@ -1,10 +1,11 @@
-#include "RssReader.h"
-#include "tinyxml2.h"
+#include "../include/RssReader.h"
+#include "../include/tinyxml2.h"
 #include <boost/regex.hpp>
 #include <fstream>
 #include <string>
 
 using namespace tinyxml2;
+using std::to_string;
 using std::ofstream;
 using std::cout;
 using std::endl;
@@ -46,6 +47,10 @@ void RssReader::dump(const string& fileName)
     ofstream ofs(fileName); 
     for(size_t i=0;i != m_vRss.size();i++)
     {
+        string str = "<doc>\n\t<docid>" + to_string(i+1) + "</docid>\n\t<title>" + m_vRss[i].link + "</link>\n\t<content>"
+               + m_vRss[i].content + "</content>\n</doc>\n";
+        ofs << str;
+#if 0
         ofs << "<doc>\n" ;
         ofs << "<docid>" << i+1 << "</docid>\n";
         ofs << "<title>" << m_vRss[i].title << "</title>\n";
@@ -53,6 +58,7 @@ void RssReader::dump(const string& fileName)
         //ofs << "<description>" << m_vRss[i].description << "</description>\n";
         ofs << "<content>" << m_vRss[i].content << "</content>\n";
         ofs << "</doc>\n";
+#endif
     }
 }
 
