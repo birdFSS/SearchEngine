@@ -3,6 +3,7 @@
 #include "../include/DirScanner.h"
 #include "../include/RssReader.h"
 #include "../include/Mylog.h"
+#include "../include/PageLib.h"
 #include <iostream>
 #include <string>
 #include <algorithm>
@@ -17,7 +18,7 @@ using std::endl;
 using std::vector;
 using std::string;
 using namespace tinyxml2;
-
+using namespace wd;
 const char * const ConfigFile = "../conf/myconf.conf";
 
 //测试读取配置文件信息
@@ -29,13 +30,26 @@ void test1();
 void test2();
 //测试offset文件是否正确
 void test3();
+//第一步格式化网络库
+void format();
 
 int main()
 {
     //test0();
     //test1();
-    test2();
+    //test2();
+    format();
     return 0;
+}
+
+void format()
+{
+    Configuration conf(ConfigFile);
+    DirScanner scan(conf);
+    scan.show();
+    PageLib pageLib(conf, scan);
+    pageLib.create();
+    pageLib.store();
 }
 
 //测试读取配置文件信息

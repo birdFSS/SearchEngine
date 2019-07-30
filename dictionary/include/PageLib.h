@@ -25,7 +25,6 @@ private:
     DirScanner&                         m_scan;
     RssReader                           m_reader;   //存放格式化后的网页
     std::map<int, std::pair<int,int>>   m_offsetLib;
-
 };
 
 

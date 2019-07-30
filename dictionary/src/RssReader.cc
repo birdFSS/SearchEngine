@@ -23,14 +23,14 @@ void RssReader::parseRssItem(tinyxml2::XMLElement* elem)
     XMLElement* channel;
     if((channel = elem->FirstChildElement("channel")) == nullptr)
     {
-        logError("channel is nullptr");
+        logWarn("channel is nullptr");
         return;
     }
 
     XMLElement* item ;
     if((item = channel->FirstChildElement("item")) == nullptr)
     {
-        logError("item is nullptr");
+        logWarn("item is nullptr");
         return ;
     }
 
@@ -56,6 +56,7 @@ void RssReader::parseRssItem(tinyxml2::XMLElement* elem)
 
         boost::regex pat("<[^>]*>");
         rssTmp.content = boost::regex_replace(rssTmp.content, pat, " ");
+
 #if 0           //暂时用不到description
         if(item->FirstChildElement("description"))
         {
