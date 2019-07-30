@@ -21,7 +21,7 @@ public:
     ~RssReader() {}
     void parseRssItem(tinyxml2::XMLElement* elem);
     void parseRss(const char* xmlName);//解析
-    void dump(const string &fileName);//输出至pagelib.txt
+    void dump(const string &fileName, const string& offsetFile);//输出至pagelib.txt
 private:
     vector<RssItem> m_vRss;
 };

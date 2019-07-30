@@ -24,8 +24,9 @@ MyLogger::MyLogger()
     struct tm ret;
     gmtime_r(&time_val, &ret);
     char buf[1024] = {0};
-    sprintf(buf, "%s%04d%02d%02d%s", "../log/", ret.tm_year+1900, ret.tm_mon + 1, ret.tm_mday, "Spell.log");
+    sprintf(buf, "%s%04d%02d%02d%s", "../log/",ret.tm_year+1900, ret.tm_mon + 1, ret.tm_mday, "Spell.log");
 #endif
+
     log4cpp::Appender *appenderFile = new log4cpp::FileAppender("default",buf);
     
     /*设置格式1*/

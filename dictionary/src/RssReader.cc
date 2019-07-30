@@ -42,14 +42,20 @@ void RssReader::parseRss(const char* xmlName)
     parseRssItem(root);
 }
 
-void RssReader::dump(const string& fileName)
+void RssReader::dump(const string& fileName, const string& offsetFile)
 {
-    ofstream ofs(fileName); 
+    ofstream ofs_doc(fileName, std::ios::app); 
+    ofstream ofs_offset(offsetFile, std::ios::app);
+    string doc_str;
+    string offset_str;
     for(size_t i=0;i != m_vRss.size();i++)
     {
-        string str = "<doc>\n\t<docid>" + to_string(i+1) + "</docid>\n\t<title>" + m_vRss[i].link + "</link>\n\t<content>"
+        offset_str = to_string(i+1) + " " + to_string(ofs_doc.tellp()) + " ";
+        doc_str = "<doc>\n\t<docid>" + to_string(i+1) + "</docid>\n\t<title>" + m_vRss[i].link + "</link>\n\t<content>"
                + m_vRss[i].content + "</content>\n</doc>\n";
-        ofs << str;
+        offset_str = offset_str + to_string(doc_str.size()) + "\n";
+        ofs_doc << doc_str;
+        ofs_offset << offset_str;
 #if 0
         ofs << "<doc>\n" ;
         ofs << "<docid>" << i+1 << "</docid>\n";

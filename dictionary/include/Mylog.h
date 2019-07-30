@@ -44,12 +44,17 @@ public:
 
     static MyLogger* getInstance();
     static void destroy();
+#if 0
+    void setLogDirPath(const std::string& dirName)
+    { m_logDirPath = dirName; }
+#endif
 private:
     MyLogger();
     ~MyLogger() {}
 private:  
     log4cpp::Category& m_root;
     static MyLogger* m_myLogger;
+    // std::string m_logDirPath;
 };
 
 
