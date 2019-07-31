@@ -4,6 +4,8 @@
 #include "../include/RssReader.h"
 #include "../include/Mylog.h"
 #include "../include/PageLib.h"
+#include "../include/WebPage.h"
+#include "../include/CppJieba.h"
 #include <iostream>
 #include <string>
 #include <algorithm>
@@ -32,14 +34,43 @@ void test2();
 void test3();
 //第一步格式化网络库
 void format();
+//测试网页类
+void testWebPage();
 
 int main()
 {
     //test0();
     //test1();
     //test2();
-    format();
+    //format();
+    testWebPage();
     return 0;
+}
+
+string getDoc(Configuration & conf)
+{
+    ifstream ifs_doc(conf.getConfigMap().at("pageLib"));
+    ifstream ifs_index(conf.getConfigMap().at("offsetLib"));
+    int docId;
+    size_t offset, len;
+    int n = 3;
+    while(n-- > 0)
+    {
+        ifs_index >> docId >> offset >> len;
+    }
+    ifs_doc.seekg(offset, ifstream::beg);
+    char buff[65536] = {0};
+    ifs_doc.read(buff, len);
+    return string(buff);
+}
+
+void testWebPage()
+{
+    Configuration conf(ConfigFile);
+    SplitTool * spt = new CppJieba();
+    string tmp = getDoc(conf);
+    WebPage page(tmp ,conf,*spt);
+    page.show();
 }
 
 void format()

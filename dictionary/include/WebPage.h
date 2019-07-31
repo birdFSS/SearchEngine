@@ -22,6 +22,8 @@ public:
 
     std::map<std::string, int> & getWordsMap();
 
+    void show() const;
+
 private:
     void processDoc(const std::string& doc, Configuration& config, SplitTool& splitTool);
     void calcTopK(std::vector<std::string> & wordsVec, int k, std::set<std::string> & stopWordList);
