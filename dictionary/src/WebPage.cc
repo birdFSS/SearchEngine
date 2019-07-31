@@ -130,9 +130,13 @@ void WebPage::calcTopK(std::vector<std::string> & wordsVec, int k, std::set<std:
         [](const std::pair<string, int>& lhs, const std::pair<string, int> & rhs) { return lhs.second > rhs.second;}
         );
 
+
     for(auto& pair_si : tmpVec)
     {
         m_topWords.push_back(pair_si.first);
+
+        logInfo("%s-->%ld", pair_si.first.c_str(), pair_si.second);
+
         if(--k == 0)
         {
             break;
@@ -143,7 +147,7 @@ void WebPage::calcTopK(std::vector<std::string> & wordsVec, int k, std::set<std:
 
 void WebPage::show() const
 {
-    logInfo("%s", m_doc.c_str());
+    //logInfo("%s", m_doc.c_str());
     logInfo("id = %d", m_docId);
     logInfo("title =$%s$", m_docTitle.c_str());
     logInfo("url=$%s$", m_docUrl.c_str());

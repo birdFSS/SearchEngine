@@ -28,7 +28,8 @@ void test0();
 
 //测试读取语料库文件的绝对位置
 void test1();
-//测试读取解析xml文件的绝对路径
+
+//测试RssReader,字符串处理
 void test2();
 //测试offset文件是否正确
 void test3();
@@ -41,9 +42,9 @@ int main()
 {
     //test0();
     //test1();
-    //test2();
+    test2();
     //format();
-    testWebPage();
+    //testWebPage();
     return 0;
 }
 

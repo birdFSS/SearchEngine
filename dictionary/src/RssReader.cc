@@ -55,7 +55,10 @@ void RssReader::parseRssItem(tinyxml2::XMLElement* elem)
         }
 
         boost::regex pat("<[^>]*>");
+        //boost::regex pat2("&[^;]*;");       //去除表示格式的特殊符号
+        boost::regex pat2("&[a-z]*;");       //去除表示格式的特殊符号
         rssTmp.content = boost::regex_replace(rssTmp.content, pat, " ");
+        rssTmp.content = boost::regex_replace(rssTmp.content, pat2, " ");
 
 #if 0           //暂时用不到description
         if(item->FirstChildElement("description"))
