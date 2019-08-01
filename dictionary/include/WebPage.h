@@ -14,7 +14,8 @@ class WebPage
     friend bool operator==(const WebPage& lhs, const WebPage& rhs);
     friend bool operator<(const WebPage& lhs, const WebPage& rhs);
 public:
-    WebPage(std::string& doc, Configuration & config, SplitTool & splitTool);
+    WebPage(const std::string& doc, Configuration & config, SplitTool & splitTool);
+    WebPage(std::string&& doc, Configuration & config, SplitTool & splitTool);
     ~WebPage() {}
 
     int getDocld();

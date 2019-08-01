@@ -36,10 +36,16 @@ bool operator<(const WebPage& lhs, const WebPage& rhs)
     return lhs.m_docId < rhs.m_docId;
 }
 
-WebPage::WebPage(std::string& doc, Configuration & config, SplitTool &  splitTool) :
+WebPage::WebPage(const std::string& doc, Configuration & config, SplitTool &  splitTool) :
     m_doc(doc)
 {
-    processDoc(doc, config, splitTool);
+    processDoc(m_doc, config, splitTool);
+}
+
+WebPage::WebPage(std::string&& doc, Configuration & config, SplitTool &  splitTool) :
+    m_doc(doc)
+{
+    processDoc(m_doc, config, splitTool);
 }
 
 int WebPage::getDocld()
@@ -148,10 +154,10 @@ void WebPage::calcTopK(std::vector<std::string> & wordsVec, int k, std::set<std:
 void WebPage::show() const
 {
     //logInfo("%s", m_doc.c_str());
-    logInfo("id = %d", m_docId);
-    logInfo("title =$%s$", m_docTitle.c_str());
-    logInfo("url=$%s$", m_docUrl.c_str());
-    logInfo("content=$%s$", m_docContent.c_str());
+    //logInfo("id = %d", m_docId);
+    //logInfo("title =$%s$", m_docTitle.c_str());
+    //logInfo("url=$%s$", m_docUrl.c_str());
+    //logInfo("content=$%s$", m_docContent.c_str());
     for(auto& word : m_topWords)
     {
         logInfo("%s", word.c_str());
