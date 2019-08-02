@@ -53,7 +53,9 @@ void RssReader::parseRssItem(tinyxml2::XMLElement* elem)
         }else{
             continue;
         }
-
+        //tinyxml2 遇到两个CDATA只会处理一个!!!
+        //logInfo("before replace\n%s", rssTmp.content.c_str());
+        //sleep(5);
         boost::regex pat("<[^>]*>");
         //boost::regex pat2("&[^;]*;");       //去除表示格式的特殊符号
         boost::regex pat2("&[a-z]*;");       //去除表示格式的特殊符号

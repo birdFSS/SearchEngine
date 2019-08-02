@@ -21,7 +21,7 @@ void PageLib::create()
 
 void PageLib::store()
 {
-    m_reader.dump(m_conf.getConfigMap().at("pagelib"),m_conf.getConfigMap().at("offsetlib"));
+    m_reader.dump(m_conf.getConfigMap().at("pageLib"),m_conf.getConfigMap().at("offsetLib"));
 }
 
 

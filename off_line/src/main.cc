@@ -6,6 +6,7 @@
 #include "../include/PageLib.h"
 #include "../include/WebPage.h"
 #include "../include/CppJieba.h"
+#include "../include/PageLibPreprocessor.h"
 #include <iostream>
 #include <string>
 #include <algorithm>
@@ -37,15 +38,25 @@ void test3();
 void format();
 //测试网页类
 void testWebPage();
+//测试去重
+void test_duplicate();
 
 int main()
 {
     //test0();
     //test1();
-    test2();
-    //format();
+    //test2();
+    format();
     //testWebPage();
+    //test_duplicate();
     return 0;
+}
+
+void test_duplicate()
+{
+    Configuration conf(ConfigFile);
+    PageLibPreprocessor pp(conf);
+    pp.doProcess();
 }
 
 string getDoc(Configuration & conf)

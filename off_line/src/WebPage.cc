@@ -17,9 +17,9 @@ namespace wd
 bool operator==(const WebPage& lhs, const WebPage& rhs)
 {
     int cnt = 0;
-    for(auto iter_lhs = lhs.m_topWords.begin(); iter_lhs != lhs.m_topWords.begin() + 10; ++iter_lhs)
+    for(auto iter_lhs = lhs.m_topWords.begin(); iter_lhs != lhs.m_topWords.end(); ++iter_lhs)
     {
-        for(auto iter_rhs = rhs.m_topWords.begin(); iter_rhs != rhs.m_topWords.begin() + 10; ++iter_rhs)
+        for(auto iter_rhs = rhs.m_topWords.begin(); iter_rhs != rhs.m_topWords.end(); ++iter_rhs)
         {
             if(*iter_lhs == *iter_rhs)
             {
@@ -131,6 +131,11 @@ void WebPage::calcTopK(std::vector<std::string> & wordsVec, int k, std::set<std:
             ++m_wordsMap[*iter];
         }
     }
+    //会读入空格，换行，tab
+    m_wordsMap.erase(string(" "));
+    m_wordsMap.erase(string("\n"));
+    m_wordsMap.erase(string("\t"));
+
     vector<std::pair<string, int>> tmpVec(m_wordsMap.begin(), m_wordsMap.end());
     sort(tmpVec.begin(),tmpVec.end(), 
         [](const std::pair<string, int>& lhs, const std::pair<string, int> & rhs) { return lhs.second > rhs.second;}
@@ -141,7 +146,7 @@ void WebPage::calcTopK(std::vector<std::string> & wordsVec, int k, std::set<std:
     {
         m_topWords.push_back(pair_si.first);
 
-        logInfo("%s-->%ld", pair_si.first.c_str(), pair_si.second);
+        //logInfo("%s-->%ld", pair_si.first.c_str(), pair_si.second);
 
         if(--k == 0)
         {
@@ -154,7 +159,7 @@ void WebPage::calcTopK(std::vector<std::string> & wordsVec, int k, std::set<std:
 void WebPage::show() const
 {
     //logInfo("%s", m_doc.c_str());
-    //logInfo("id = %d", m_docId);
+    logInfo("id = %d", m_docId);
     //logInfo("title =$%s$", m_docTitle.c_str());
     //logInfo("url=$%s$", m_docUrl.c_str());
     //logInfo("content=$%s$", m_docContent.c_str());

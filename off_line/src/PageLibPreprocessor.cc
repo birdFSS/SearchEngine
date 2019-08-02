@@ -28,12 +28,11 @@ void PageLibPreprocessor::doProcess()
     size_t i = 0;
     while(++i != m_pageLib.size())
     {
-        logInfo("-----------------%ld-------------", i);
         m_pageLib[i].show();
     }
 
 #endif
-    buildInvertIndexTable();
+    //buildInvertIndexTable();
     storeOnDisk();
 }
 
@@ -56,7 +55,7 @@ void PageLibPreprocessor::readInfoFromFile()
         string doc;
         doc.resize(len, ' ');
         ifs_doc.read(&*doc.begin(), len);
-        m_pageLib.push_back(WebPage(std::move(doc), m_conf, m_jieba));
+        m_pageLib.push_back(WebPage(doc, m_conf, m_jieba));
 
         m_offsetLib.insert(std::make_pair(docId, std::make_pair(offset, len)));
     }
@@ -139,7 +138,13 @@ void PageLibPreprocessor::buildInvertIndexTable()
 
 void PageLibPreprocessor::storeOnDisk()
 {
+#if 0
+    sort(m_pageLib.begin(),m_pageLib.end());
+    for(auto& item : m_invertIndexTable)
+    {
 
+    }
+#endif
 }
 
 
