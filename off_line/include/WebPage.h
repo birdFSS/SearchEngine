@@ -25,6 +25,7 @@ public:
     WebPage& operator=(WebPage&& page) noexcept;
 
     int getDocId();
+    void setDocId(int i) { m_docId = i; }
     std::string getDoc();
 
     std::map<std::string, int> & getWordsMap();
@@ -38,7 +39,7 @@ private:
     void calcTopK(std::vector<std::string> & wordsVec, int k, std::set<std::string> & stopWordList);
 
 private:
-    const static int    TOPK_NUMBER = 20;
+    const static int    TOPK_NUMBER = 10;
     std::string         m_doc;
     int                 m_docId;
     std::string         m_docTitle;

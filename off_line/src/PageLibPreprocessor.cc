@@ -4,6 +4,7 @@
 #include <set>
 #include <map>
 #include <fstream>
+using std::ofstream;
 using std::ifstream;
 using std::map;
 using std::set;
@@ -24,15 +25,7 @@ void PageLibPreprocessor::doProcess()
 {
     readInfoFromFile();
     cutRedundantPages();
-#if PAGELIBPRO_DEBUG
-    size_t i = 0;
-    while(++i != m_pageLib.size())
-    {
-        m_pageLib[i].show();
-    }
-
-#endif
-    //buildInvertIndexTable();
+    buildInvertIndexTable();
     storeOnDisk();
 }
 
@@ -72,17 +65,32 @@ void PageLibPreprocessor::cutRedundantPages()
             if(*i == *j)
             {
                 --back_iter;
-                if(j != back_iter)
+                if(*i < *j)       //i优先级大于j(i的序号小于j),保留i
                 {
-                    //不需要交换，因为*j是不需要的
-                    *j = std::move(*back_iter);
+                    //if(j != back_iter)    //WebPage 移动构造函数 能够处理自复制问题
+                    //{
+                        //不需要交换，因为*j是不需要的
+                        *j = std::move(*back_iter);
+                    //}
+                    --j;
+                }else{
+                    *i = std::move(*j);
+                    *j = std::move(*back_iter);     //移动运算符里加了自复制判断，所以不用加if判断j和back_iter
+                    --j;
                 }
-                --j;
             }
         }
     }
 
     m_pageLib.erase(back_iter, m_pageLib.end());
+
+    sort(m_pageLib.begin(), m_pageLib.end());
+    int i = 1;
+    for(auto& page : m_pageLib)
+    {
+        page.setDocId(i);
+        ++i;
+    }
 }
 
 void PageLibPreprocessor::buildInvertIndexTable()
@@ -126,7 +134,7 @@ void PageLibPreprocessor::buildInvertIndexTable()
 #if PAGELIBPRO_DEBUG
     for(auto& item : m_invertIndexTable)
     {
-        logDebug("%s", item.first.c_str());
+        logDebug(">>>%s", item.first.c_str());
         for(auto& sItem : item.second)
         {
             logDebug("%d-->%lf", sItem.first, sItem.second);
@@ -137,13 +145,19 @@ void PageLibPreprocessor::buildInvertIndexTable()
 
 void PageLibPreprocessor::storeOnDisk()
 {
-#if 0
-    sort(m_pageLib.begin(),m_pageLib.end());
-    for(auto& item : m_invertIndexTable)
+    ofstream ofs_pageLib(m_conf.getConfigMap().at("newPageLib"));
+    ofstream ofs_offsetLib(m_conf.getConfigMap().at("newOffsetLib"));
+
+    if((!ofs_pageLib.good()) || (!ofs_offsetLib.good()))
+    {
+        logError("new page lib or new offset lib can't open");
+        return ;
+    }
+
+    for(auto& page : m_pageLib)
     {
 
     }
-#endif
 }
 
 

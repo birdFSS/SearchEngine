@@ -65,18 +65,20 @@ WebPage::WebPage(const WebPage& rhs) :
 #endif
 WebPage::WebPage(WebPage&& rhs) noexcept
 {
-        m_doc.swap(rhs.m_doc);
-        m_docId = rhs.m_docId;
-        m_docTitle.swap(rhs.m_docTitle);
-        m_docUrl.swap(rhs.m_docUrl);
-        m_docContent.swap(rhs.m_docContent);
-        m_docSummary.swap(rhs.m_docSummary);
-        m_topWords.swap(rhs.m_topWords);
-        m_wordsMap.swap(rhs.m_wordsMap);
+    //logInfo("WebPage::WebPage(WebPage&& rhs) noexcept");
+    m_doc.swap(rhs.m_doc);
+    m_docId = rhs.m_docId;
+    m_docTitle.swap(rhs.m_docTitle);
+    m_docUrl.swap(rhs.m_docUrl);
+    m_docContent.swap(rhs.m_docContent);
+    m_docSummary.swap(rhs.m_docSummary);
+    m_topWords.swap(rhs.m_topWords);
+    m_wordsMap.swap(rhs.m_wordsMap);
 }
 
 WebPage& WebPage::operator=(const WebPage& page) 
 {
+    //logInfo("WebPage& WebPage::operator=(const WebPage& page)");
     if(this != &page)
     {
         m_doc = page.m_doc;
@@ -97,6 +99,7 @@ WebPage& WebPage::operator=(const WebPage& page)
 
 WebPage& WebPage::operator=(WebPage&& page) noexcept
 {
+    //logInfo(" WebPage::WebPage(WebPage&& rhs) noexcept");
     if(this != &page)
     {
         m_doc.swap(page.m_doc);
