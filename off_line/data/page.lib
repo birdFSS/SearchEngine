@@ -186,10 +186,10 @@
  --> 
      关注CoolShell微信公众账号和微信小程序 
  
-  （转载本站文章请注明作者和出处  酷 壳 &#8211; CoolShell  ，请勿用于任何商业用途）  
+  （转载本站文章请注明作者和出处  酷 壳   CoolShell  ，请勿用于任何商业用途）  
  ——===  访问  酷壳404页面  寻找遗失儿童。  ===—— 
 
-   相关文章       技术人员的发展之路       什么是工程师文化？       这多年来我一直在钻研的技术       关于高可用的系统       「我只是认真」聊聊工匠情怀       互联网之子 &#8211; Aaron Swartz     
+   相关文章       技术人员的发展之路       什么是工程师文化？       这多年来我一直在钻研的技术       关于高可用的系统       「我只是认真」聊聊工匠情怀       互联网之子   Aaron Swartz     
 </content>
 </doc>
 <doc>
@@ -203,9 +203,9 @@
  HTTP Basic 
  Digest Access 
  App Secret Key + HMAC 
- JWT &#8211; JSON Web Tokens 
- OAuth 1.0 &#8211; 3 legged   2 legged 
- OAuth 2.0 &#8211; Authentication Code   Client Credential 
+ JWT   JSON Web Tokens 
+ OAuth 1.0   3 legged   2 legged 
+ OAuth 2.0   Authentication Code   Client Credential 
  
     
  HTTP Basic 
@@ -221,7 +221,7 @@
  但我们还是要知道，这种把用户名和密码同时放在公网上传输的方式有点不太好，因为Base64不是加密协议，而是编码协议，所以就算是有HTTPS作为安全保护，给人的感觉还是不放心。 
  Digest Access 
  中文称“HTTP 摘要认证”，最初被定义在了  RFC 2069  文档中（后来被  RFC 2617  引入了一系列安全增强的选项；“保护质量”(qop)、随机数计数器由客户端增加、以及客户生成的随机数）。 
- 其基本思路是，请求方把用户名口令和域做一个MD5 &#8211;   MD5(username:realm:password)  然后传给服务器，这样就不会在网上传用户名和口令了，但是，因为用户名和口令基本不会变，所以，这个MD5的字符串也是比较固定的，因此，这个认证过程在其中加入了两个事，一个是  nonce  另一个是  qop  
+ 其基本思路是，请求方把用户名口令和域做一个MD5     MD5(username:realm:password)  然后传给服务器，这样就不会在网上传用户名和口令了，但是，因为用户名和口令基本不会变，所以，这个MD5的字符串也是比较固定的，因此，这个认证过程在其中加入了两个事，一个是  nonce  另一个是  qop  
  
  首先，调用方发起一个普通的HTTP请求。比如： GET /coolshell/admin/ HTTP/1.1  
  服务端自然不能认证能过，服务端返回401错误，并且在HTTP头里的  WWW-Authenticate  包含如下信息： 
@@ -251,10 +251,10 @@ Authorization: Digest username="Mufasa",
  维基百科上的  Wikipedia: Digest access authentication  词条非常详细地描述了这个细节。 
  摘要认证这个方式会比之前的方式要好一些，因为没有在网上传递用户的密码，而只是把密码的MD5传送过去，相对会比较安全，而且，其并不需要是否TLS/SSL的安全链接。但是， 别看这个算法这么复杂，最后你可以发现，整个过程其实关键是用户的password，这个password如果不够得杂，其实是可以被暴力破解的，而且，整个过程是非常容易受到中间人攻击 ——比如一个中间人告诉客户端需要的 Basic 的认证方式 或是 老旧签名认证方式（RFC2069）。 
  App Secret Key + HMAC 
- 先说HMAC技术，这个东西来自于MAC &#8211;  Message Authentication Code ，是一种用于给消息签名的技术，也就是说，我们怕消息在传递的过程中被人修改，所以，我们需要用对消息进行一个MAC算法，得到一个摘要字串，然后，接收方得到消息后，进行同样的计算，然后比较这个MAC字符串，如果一致，则表明没有被修改过（整个过程参看下图）。而HMAC &#8211;  Hash-based Authenticsation Code ，指的是利用Hash技术完成这一工作，比如：SHA-256算法。 
+ 先说HMAC技术，这个东西来自于MAC    Message Authentication Code ，是一种用于给消息签名的技术，也就是说，我们怕消息在传递的过程中被人修改，所以，我们需要用对消息进行一个MAC算法，得到一个摘要字串，然后，接收方得到消息后，进行同样的计算，然后比较这个MAC字符串，如果一致，则表明没有被修改过（整个过程参看下图）。而HMAC    Hash-based Authenticsation Code ，指的是利用Hash技术完成这一工作，比如：SHA-256算法。 
    
    
- （图片来自  Wikipedia &#8211; MAC 词条  ） 
+ （图片来自  Wikipedia   MAC 词条  ） 
  我们再来说App ID，这个东西跟验证没有关系，只是用来区分，是谁来调用API的，就像我们每个人的身份证一样，只是用来标注不同的人，不是用来做身份认证的。与前面的不同之处是，这里，我们需要用App ID 来映射一个用于加密的密钥，这样一来，我们就可以在服务器端进行相关的管理，我们可以生成若干个密钥对（AppID, AppSecret），并可以有更细粒度的操作权限管理。 
  把AppID和HMAC用于API认证，目前来说，玩得最好最专业的应该是AWS了，我们可以通过 S3的API请求签名文档 看到AWS是怎么玩的。整个过程还是非常复杂的，可以通过下面的图片流程看个大概。基本上来说，分成如下几个步骤： 
  
@@ -274,7 +274,7 @@ Authorization: Digest username="Mufasa",
    
  其中的   AKIDEXAMPLE  是 AWS Access Key ID， 也就是所谓的 AppID，服务器端会根据这个AppID来查相关的 Secret Access Key，然后再验证签名。如果，你对这个过程有点没看懂的话，你可以读一读这篇文章——《 Amazon S3 Rest API with curl 》这篇文章里有好些代码，代码应该是最有细节也是最准确的了。 
  这种认证的方式好处在于，AppID和AppSecretKey，是由服务器的系统开出的，所以，是可以被管理的，AWS的IAM就是相关的管理，其管理了用户、权限和其对应的AppID和AppSecretKey。但是不好的地方在于，这个东西没有标准 ，所以，各家的实现很不一致。比如：  Acquia 的 HMAC ， 微信的签名算法  （这里，我们需要说明一下，微信的API没有遵循HTTP协议的标准，把认证信息放在HTTP 头的  Authorization  里，而是放在body里） 
- JWT &#8211; JSON Web Tokens 
+ JWT   JSON Web Tokens 
  JWT是一个比较标准的认证解决方案，这个技术在Java圈里应该用的是非常普遍的。JWT签名也是一种MAC（ Message Authentication Code ）的方法。JWT的签名流程一般是下面这个样子： 
  
  用户使用用户名和口令到认证服务器上请求认证。 
@@ -490,7 +490,7 @@ grant_type=client_credentials
  --> 
      关注CoolShell微信公众账号和微信小程序 
  
-  （转载本站文章请注明作者和出处  酷 壳 &#8211; CoolShell  ，请勿用于任何商业用途）  
+  （转载本站文章请注明作者和出处  酷 壳   CoolShell  ，请勿用于任何商业用途）  
  ——===  访问  酷壳404页面  寻找遗失儿童。  ===—— 
 
    相关文章       从“黑掉Github”学Web安全开发       如何免费的让网站启用HTTPS       关于移动端的钓鱼式攻击       从 MongoDB “赎金事件” 看安全问题       C语言的整型溢出问题       bash代码注入的安全漏洞     
@@ -535,7 +535,7 @@ grant_type=client_credentials
  下面我们再来看一个年龄图： 
    
  调查报告从20岁开始每隔5年划分一个年龄段，我们不难发现从25-29岁开始每个年龄段都比前一个年龄段人数急剧减少大约30-50%，比如25-29年龄段占总人数27.6%，而30-34则只有19.3%。以此类推，到60岁以上，就只剩1%。可以看出5年是大多数程序员的转型周期。这是合理的，因为5年时间足够一个人积累足够的经验技能为职业转型做准备。 
- 我们也可以看到50岁以上的程序员只有4.2%，大约是参与调查人员的300多人，如果这些人20岁左右参加工作，那么说明他们在1990左右就开始写代码，事实上那个时间点别说是程序员了，连电脑用户都不多。 电脑和互联网真正暴发的时间还是在1995年 &#8211; 2000年之间，不过，那个时间点程序员的总体人数也不多，而行业越来越火才会导致大量的人进入到这个行业中，这个转换过程基本上去需要3-5年，也就是从2000年后才开始有大量的人拥入程序员这个行业，程序员的人数在过去30年间也是呈增涨态势的，所以，我个人认为，所谓的“众多老程序员”的比例会被2005年以后大量拥入程序员行业的年青人所“稀释”。所以，上图的比例不能完全说明程序员是个青春饭 。 
+ 我们也可以看到50岁以上的程序员只有4.2%，大约是参与调查人员的300多人，如果这些人20岁左右参加工作，那么说明他们在1990左右就开始写代码，事实上那个时间点别说是程序员了，连电脑用户都不多。 电脑和互联网真正暴发的时间还是在1995年   2000年之间，不过，那个时间点程序员的总体人数也不多，而行业越来越火才会导致大量的人进入到这个行业中，这个转换过程基本上去需要3-5年，也就是从2000年后才开始有大量的人拥入程序员这个行业，程序员的人数在过去30年间也是呈增涨态势的，所以，我个人认为，所谓的“众多老程序员”的比例会被2005年以后大量拥入程序员行业的年青人所“稀释”。所以，上图的比例不能完全说明程序员是个青春饭 。 
  但是，我们还是要正视老牌资深的程序员越来越少的这个事实，在这份报告第三部分中说了一些和程序员职业生涯相关的调查，如下： 
  
   在被问到有多少人对自己的职业满意的时 。有40%的人觉得很满意，而有34.3%的人觉得一般满意，有10%的人说不清，还有15%的人是不满意的。可以看到有不少人是对这个职业生涯是有想法的。 
@@ -593,13 +593,13 @@ grant_type=client_credentials
    
  从上面这个图中，我们可以看以技术的几圈子： 
  
-  Microsoft圈  &#8211; Windows、.NET、ASP.NET、C#、Azure、SQL Server 
-  Java圈  &#8211; Java、Spring 
-  手机圈  &#8211; Android、 iOS、Kotlin、Swift、Firebase 
-  前端圈  &#8211; Javascript、React.js、Angular.js、PHP 
-  大数据圈  &#8211; Python、TensorFlow、Torch/PyTorch 
-  基础平台圈  &#8211; Linux、Shell、Vim、Docker、Kubernetes、Elasticsearch、Redis…… 
-  其它圈子  &#8211; C/C++/汇编圈子、Ruby圈子、Hadoop/Spark圈子、…… 
+  Microsoft圈    Windows、.NET、ASP.NET、C#、Azure、SQL Server 
+  Java圈    Java、Spring 
+  手机圈    Android、 iOS、Kotlin、Swift、Firebase 
+  前端圈    Javascript、React.js、Angular.js、PHP 
+  大数据圈    Python、TensorFlow、Torch/PyTorch 
+  基础平台圈    Linux、Shell、Vim、Docker、Kubernetes、Elasticsearch、Redis…… 
+  其它圈子    C/C++/汇编圈子、Ruby圈子、Hadoop/Spark圈子、…… 
  
   看到谁的圈子大了吧，圈子大的并不代表技术实力强或是有前途，不过可以代表在那个圈子相关的关联技术，一方面，可以给你一些相关的参考，另一方面，整体可以让你看到全部的目前比较主流的技术。  
  第三部份 工作 
@@ -620,7 +620,7 @@ grant_type=client_credentials
  --> 
      关注CoolShell微信公众账号和微信小程序 
  
-  （转载本站文章请注明作者和出处  酷 壳 &#8211; CoolShell  ，请勿用于任何商业用途）  
+  （转载本站文章请注明作者和出处  酷 壳   CoolShell  ，请勿用于任何商业用途）  
  ——===  访问  酷壳404页面  寻找遗失儿童。  ===—— 
 
    相关文章       关于高可用的系统       技术人员的发展之路       什么是工程师文化？       这多年来我一直在钻研的技术       Leetcode 编程训练       从Gitlab误删除数据库想到的     
@@ -658,10 +658,10 @@ grant_type=client_credentials
  --> 
      关注CoolShell微信公众账号和微信小程序 
  
-  （转载本站文章请注明作者和出处  酷 壳 &#8211; CoolShell  ，请勿用于任何商业用途）  
+  （转载本站文章请注明作者和出处  酷 壳   CoolShell  ，请勿用于任何商业用途）  
  ——===  访问  酷壳404页面  寻找遗失儿童。  ===—— 
 
-   相关文章       什么是工程师文化？       从Code Review 谈如何做技术       关于高可用的系统       技术人员的发展之路       让我们来谈谈分工       互联网之子 &#8211; Aaron Swartz     
+   相关文章       什么是工程师文化？       从Code Review 谈如何做技术       关于高可用的系统       技术人员的发展之路       让我们来谈谈分工       互联网之子   Aaron Swartz     
 </content>
 </doc>
 <doc>
@@ -850,7 +850,7 @@ gnudate() {
  使用  $()  而不是 &#8220; 来获得命令行的输出，主要原因是易读。 
  小心不同的平台，尤其是 MacOS 和 Linux 的跨平台。 
  对于  rm -rf  这样的高危操作，需要检查后面的变量名是否为空，比如： rm -rf $MYDIDR/*  如果  $MYDIR 为空，结果是灾难性的。 
- 考虑使用 &#8220;find/while&#8221; 而不是 “for/find”。如： for F in $(find . -type f) ; do echo $F; done  写成  find . -type f | while read F ; do echo $F ; done  不但可以容忍空格，而且还更快。 
+ 考虑使用 &#8220;find/while  而不是 “for/find”。如： for F in $(find . -type f) ; do echo $F; done  写成  find . -type f | while read F ; do echo $F ; done  不但可以容忍空格，而且还更快。 
  防御式编程，在正式执行命令前，把相关的东西都检查好，比如，文件目录有没有存在。 
  
  你还可以使用ShellCheck 来帮助你检查你的脚本。 
@@ -894,7 +894,7 @@ gnudate() {
  --> 
      关注CoolShell微信公众账号和微信小程序 
  
-  （转载本站文章请注明作者和出处  酷 壳 &#8211; CoolShell  ，请勿用于任何商业用途）  
+  （转载本站文章请注明作者和出处  酷 壳   CoolShell  ，请勿用于任何商业用途）  
  ——===  访问  酷壳404页面  寻找遗失儿童。  ===—— 
 
    相关文章       应该知道的Linux技巧       你可能不知道的Shell       Docker基础技术：AUFS       bash代码注入的安全漏洞       Docker基础技术：DeviceMapper       Docker基础技术：Linux Namespace（下）     
@@ -969,7 +969,7 @@ Small minds discuss people
  --> 
      关注CoolShell微信公众账号和微信小程序 
  
-  （转载本站文章请注明作者和出处  酷 壳 &#8211; CoolShell  ，请勿用于任何商业用途）  
+  （转载本站文章请注明作者和出处  酷 壳   CoolShell  ，请勿用于任何商业用途）  
  ——===  访问  酷壳404页面  寻找遗失儿童。  ===—— 
 
    相关文章       技术人员的发展之路       什么是工程师文化？       这多年来我一直在钻研的技术       关于高可用的系统       Leetcode 编程训练       「我只是认真」聊聊工匠情怀     
@@ -1032,7 +1032,7 @@ $ ls /var/run/docker/netns | xargs -I {} nsenter --net=/var/run/docker/netns/{} 
   10.233.14.145  我们查到了这个IP，说明，docker的namespace下还有这个IP。 
   10.233.14.137 ，这个IP没有在docker的network namespace下查到。 
  
- 有namespace leaking？于是我上网查了一下，发现了一个docker的bug &#8211; 在docker remove/stop 一个容器的时候，没有清除相应的network namespace，这个问题被报告到了  Issue#31597  然后被fix在了  PR#31996 ，并Merge到了 Docker的 17.05版中。而用户的版本是 17.09，应该包含了这个fix。不应该是这个问题，感觉又走不下去了。 
+ 有namespace leaking？于是我上网查了一下，发现了一个docker的bug   在docker remove/stop 一个容器的时候，没有清除相应的network namespace，这个问题被报告到了  Issue#31597  然后被fix在了  PR#31996 ，并Merge到了 Docker的 17.05版中。而用户的版本是 17.09，应该包含了这个fix。不应该是这个问题，感觉又走不下去了。 
  不过，  10.233.14.137  这个IP可以ping得通，说明这个IP一定被绑在某个网卡，而且被隐藏到了某个network namespace下。 
  到这里，要查看所有network namespace，只有最后一条路了，那就是到  /proc/  目录下，把所有的pid下的  /proc/ pid /ns  目录给穷举出来。好在这里有一个比较方便的命令可以干这个事 ：  lsns  
  于是我写下了如下的命令： 
@@ -1107,7 +1107,7 @@ systemd───dockerd─┬─containerd─┬─3*[containerd-shim─┬─sl
  --> 
      关注CoolShell微信公众账号和微信小程序 
  
-  （转载本站文章请注明作者和出处  酷 壳 &#8211; CoolShell  ，请勿用于任何商业用途）  
+  （转载本站文章请注明作者和出处  酷 壳   CoolShell  ，请勿用于任何商业用途）  
  ——===  访问  酷壳404页面  寻找遗失儿童。  ===—— 
 
    相关文章       Docker基础技术：Linux CGroup       Docker基础技术：DeviceMapper       Docker基础技术：AUFS       Docker基础技术：Linux Namespace（下）       Docker基础技术：Linux Namespace（上）       Linux PID 1 和 Systemd     
@@ -1157,7 +1157,7 @@ systemd───dockerd─┬─containerd─┬─3*[containerd-shim─┬─sl
  --> 
      关注CoolShell微信公众账号和微信小程序 
  
-  （转载本站文章请注明作者和出处  酷 壳 &#8211; CoolShell  ，请勿用于任何商业用途）  
+  （转载本站文章请注明作者和出处  酷 壳   CoolShell  ，请勿用于任何商业用途）  
  ——===  访问  酷壳404页面  寻找遗失儿童。  ===—— 
 
    相关文章       关于高可用的系统       程序员技术练级攻略       从Gitlab误删除数据库想到的       对技术的态度       如何学好C语言       Leetcode 编程训练     
@@ -1171,9 +1171,9 @@ systemd───dockerd─┬─containerd─┬─3*[containerd-shim─┬─sl
  为什么要开设一个收费专栏 
  首先，说一下，为什么要开这个收费专栏。 
  老实说，我一开始根本就不想开收费专栏的，是的，完全不想！主要是有两个原因，一方面是我在创业中，我自然是没有太多的时间，另一方面是，我以前在《 为什么我不在微信公众号上写文章 》也说过，我觉得知识最好的方式是被检索、讨论、引用、整理、补充和更新。所以，收费这种模式，我感觉并不利于很好的传播。但是，我为什么还干了这么一件事？这事还得从2017年6月份开始说起。 
- 这个月，一共有三家技术社区来找我，都是希望我能去他们那边开收费专栏，其中一家就是“极客邦科技”。对于这三家来说，从一开始我就是以婉拒的姿态回应的。而“极客邦科技”来找我的时候和我说，一周写五篇，写一年，一共260篇。我当时心想，“去你的，当我啥呢，你们真以为技术文章好写啊&#8221;？然后，他们问我可以写多少，我说，我现在也就一个月一篇的节奏…… 
+ 这个月，一共有三家技术社区来找我，都是希望我能去他们那边开收费专栏，其中一家就是“极客邦科技”。对于这三家来说，从一开始我就是以婉拒的姿态回应的。而“极客邦科技”来找我的时候和我说，一周写五篇，写一年，一共260篇。我当时心想，“去你的，当我啥呢，你们真以为技术文章好写啊 ？然后，他们问我可以写多少，我说，我现在也就一个月一篇的节奏…… 
     
- 然后，就开始了时间漫长的拉锯战。极客邦这边一直从6月份和我谈到9月份，完全就是不达目的不罢休的玩法，其间，每当我说一个问题，他们就会想出一个解，我这边不断地制造不能写下去的问题，他们就不断的给出相应的解。我其实是想让他们知难而退，另外，我也不确定这帮人对于这个事有多上心，因为写技术文章是需要非常认真的态度的，所以，我提出了很多比较苛刻的条件，甚至也很直白的直接拒绝，但是他们完全就跟没有听见似的，不断的想新的方法来让我&#8221;上床&#8221;（对！就是上床，不是上船）。 
+ 然后，就开始了时间漫长的拉锯战。极客邦这边一直从6月份和我谈到9月份，完全就是不达目的不罢休的玩法，其间，每当我说一个问题，他们就会想出一个解，我这边不断地制造不能写下去的问题，他们就不断的给出相应的解。我其实是想让他们知难而退，另外，我也不确定这帮人对于这个事有多上心，因为写技术文章是需要非常认真的态度的，所以，我提出了很多比较苛刻的条件，甚至也很直白的直接拒绝，但是他们完全就跟没有听见似的，不断的想新的方法来让我 上床 （对！就是上床，不是上船）。 
  
  我说，我最多一个月写2-3篇。他们和我说，我们看过了，你写的都是长文，都在5000字左右，一篇可以拆成上下篇，这样就有6篇左右了，然后，你每个月再来两篇文章，一篇是推荐一些资料或资源，一篇是回答读者的问题。这样就有8篇了，一周就可以发2篇了。 
  
@@ -1232,7 +1232,7 @@ systemd───dockerd─┬─containerd─┬─3*[containerd-shim─┬─sl
  --> 
      关注CoolShell微信公众账号和微信小程序 
  
-  （转载本站文章请注明作者和出处  酷 壳 &#8211; CoolShell  ，请勿用于任何商业用途）  
+  （转载本站文章请注明作者和出处  酷 壳   CoolShell  ，请勿用于任何商业用途）  
  ——===  访问  酷壳404页面  寻找遗失儿童。  ===—— 
 
    相关文章       DHH 谈混合移动应用开发       Google Inbox如何跨平台重用代码？       HTML6 展望       两本电子书       一些文章资源和趣闻       一些非常有意思的杂项资源     
@@ -1323,7 +1323,7 @@ systemd───dockerd─┬─containerd─┬─3*[containerd-shim─┬─sl
  --> 
      关注CoolShell微信公众账号和微信小程序 
  
-  （转载本站文章请注明作者和出处  酷 壳 &#8211; CoolShell  ，请勿用于任何商业用途）  
+  （转载本站文章请注明作者和出处  酷 壳   CoolShell  ，请勿用于任何商业用途）  
  ——===  访问  酷壳404页面  寻找遗失儿童。  ===—— 
 
    相关文章       Go语言的修饰器编程       Go 语言简介（上）— 语法       Go 语言简介（下）— 特性       Docker基础技术：Linux Namespace（上）       Docker基础技术：DeviceMapper       Docker基础技术：Linux Namespace（下）     
@@ -1333,7 +1333,7 @@ systemd───dockerd─┬─containerd─┬─3*[containerd-shim─┬─sl
 	<docid>21</docid>
 	<url>https://coolshell.cn/articles/18140.html</url>
 	<title>关于Facebook 的 React 专利许可证</title>
-	<content>  随着Apache、百度、Wordpress都在和Facebook的React.js以及其专利许可证划清界限，似乎大家又在讨论Facebook的这个BSD+PATENT的许可证问题了。这让我想起了之前在Medium读过的一篇文章——《 React, Facebook, and the Revocable Patent License, Why It&#8217;s a Paper 》，我觉得那篇文章写的不错，而且还是一个会编程的律师写的，所以有必要把这篇文章传播到中文社区这边来。注意，我不会全部翻译，我只是用我的语言来负责搬运内容和观点，我只想通过这篇文章让大家了解一下这个世界以及专利相关的知识，这样可以避免你看到某乎的“怎么看待XXX”这类的问题时人云亦云，能有自己的独立思考和自我判断。;-) 
+	<content>  随着Apache、百度、Wordpress都在和Facebook的React.js以及其专利许可证划清界限，似乎大家又在讨论Facebook的这个BSD+PATENT的许可证问题了。这让我想起了之前在Medium读过的一篇文章——《 React, Facebook, and the Revocable Patent License, Why It s a Paper 》，我觉得那篇文章写的不错，而且还是一个会编程的律师写的，所以有必要把这篇文章传播到中文社区这边来。注意，我不会全部翻译，我只是用我的语言来负责搬运内容和观点，我只想通过这篇文章让大家了解一下这个世界以及专利相关的知识，这样可以避免你看到某乎的“怎么看待XXX”这类的问题时人云亦云，能有自己的独立思考和自我判断。;-) 
  这篇文章的作者叫Dennis Walsh，他自称是亚历桑那和加利福尼亚州的律师，主要针对版权法和专利诉论的法律领域。但是这个律师不一样，他更很喜欢商业和软件多一些。现在他用React/GraphQL/Elixir在写一个汽车代理销售相关的软件，而且已经发布到第2版了。 
  首先，作者表明，专利法经常被人误解，因为其实充满了各种晦涩难懂的法律术语，所以，作者用个例子来讲述专利的一个原则 ——  专利并不是授于让你制造或开发的权利，而是授予你可以排他的权利。（ 事实上似乎也是这样，申请专利很多时候都不是为了制作相关的产品，而是为了防止别人使用类似的技术制作相关的产品） 
     
@@ -1341,17 +1341,17 @@ systemd───dockerd─┬─containerd─┬─3*[containerd-shim─┬─sl
  所以，公司Y的橡皮擦专利又被广泛地叫作“ Blocking Patent ”。公司Y不能说他发明了铅笔，因为这是公司X的专利，但是，他们可以让公司X无法对铅笔做出某些改进。 
  于是，因为这种 Blocking Patent 存在，对于开源的公司是不利的，因为根据上面的那个例子来说，开源公司就是公司X，他们做了一个基础的软件，而公司Y在上面做了些改进，并注册成了专利，从而导致开源的公司X无法对它基础开源软件作出被公司Y专利阻止的改进，开源的公司X希望能够自由地使用公司Y的橡皮擦专利，因为毕竟是它发明了铅笔并放弃了铅笔的专利。 
  于是就出来了“专利反击条款”（ Patent Retaliation Clauses ）。一般来说有两种专利条款，一种是弱条款，一种是强条款。 
- Weak Patent Retaliation Clauses &#8211; 这种条款声明，如果许可证持有者用某个专利来打击许可证颁布者，那么专利就视为终止。用人话来表达就是，公司X做了一个开源铅笔，而公司Y注册了橡皮檫专利。此时，公司X做了一支带像皮擦的铅笔，而公司Y马上对公司X提起专利侵权诉讼。那么，公司Y就失去了对底层铅笔的专利控制。（正如前面所说的，公司Y的橡皮擦专利因为在起诉公司X的开源铅笔，而失去了对开源铅笔的专利排他权利） 
- Strong Patent Retailiation Clauses &#8211; 这种条款声明比“弱条款”要的更多。具体来说就是，任何专利声明终结许可证，而不管这个专利有没有和你基础的软件有关系。用人话来说就是，公司Y使用他们的热气球专利来起诉公司X，那么公司Y就失去了他们对铅笔的专利限制。 
+ Weak Patent Retaliation Clauses   这种条款声明，如果许可证持有者用某个专利来打击许可证颁布者，那么专利就视为终止。用人话来表达就是，公司X做了一个开源铅笔，而公司Y注册了橡皮檫专利。此时，公司X做了一支带像皮擦的铅笔，而公司Y马上对公司X提起专利侵权诉讼。那么，公司Y就失去了对底层铅笔的专利控制。（正如前面所说的，公司Y的橡皮擦专利因为在起诉公司X的开源铅笔，而失去了对开源铅笔的专利排他权利） 
+ Strong Patent Retailiation Clauses   这种条款声明比“弱条款”要的更多。具体来说就是，任何专利声明终结许可证，而不管这个专利有没有和你基础的软件有关系。用人话来说就是，公司Y使用他们的热气球专利来起诉公司X，那么公司Y就失去了他们对铅笔的专利限制。 
  我个人理解起来，这两种条款看上去是防御性质的。 
  Facebook的React的Patent License如下： 
   The license granted hereunder will terminate, automatically and without notice,if you (or any of your subsidiaries, corporate affiliates or agents) initiatedirectly or indirectly, or take a direct financial interest in, any Patent Assertion: (i) against Facebook or any of its subsidiaries or corporateaffiliates, (ii) against any party if such Patent Assertion arises in whole orin part from any software, technology, product or service of Facebook or any ofits subsidiaries or corporate affiliates, or (iii) against any party relating to the Software. Notwithstanding the foregoing, if Facebook or any of itssubsidiaries or corporate affiliates files a lawsuit alleging patentinfringement against you in the first instance, and you respond by filing apatent infringement counterclaim in that lawsuit against that party that isunrelated to the Software, the license granted hereunder will not terminateunder section (i) of this paragraph due to such counterclaim.  
  这些条款中和基础软件没有任何关系，所以， 这个条款是“强专利反击条款” 。 
  在后面，本文的作者又解解释了，为什么React的“强专利反击条款”就跟没有似的。他在文中针对一些歇斯底里的言论，如：“Facebook不用害怕专利诉讼了，而且他可以随时偷袭你家的专利仓库”，也作出了一些解释来分析这个事。 
- Contractural Liability &#8211; 意思是说，专利方面的东西只会影响专利上的事，而不会影响和专利无关的事，React底层协议是BSD-3许可证还是会被保留。换句话说，React的“强专利反击条款”只生效于专利层面，而不会对非常专利的软件使用产生问题，如果和专利无关，React还是走BSD-3的许可协议。 
- Copyright Liability &#8211; 这个和Contractural Liablitity 一样。作者说，如果有人有特别的案例或是有说服力的论据来说明Facebook的这个条款会作用于非专利的地方，那么，请告诉他。 
- Patent Liability &#8211; 专利的责任和损害是两件事，非专业人士总是会把其搞混。 
- 第一个问题是Liability， 要搞清这个事，得搞清“Patent&#8217;s Claims”，而不是这个技术的技术规格说明，技术规格说明和权力主张是两码事。作者说，现在的很多专利都是一些想法，很多投机份子随便一拍脑袋就发明出一个想法，然后就去注册专利了。但是可以被用来法律执行的只有“Patent&#8217;s Claims”（专利的权利主张），而不是那些想法。这些权利主张相当相当的晦涩难读，而且是会故意被模糊掉的，因为，当你清楚的定义了你的发明是什么，那么，就可以清楚的定义出来什么不是你的发明。比如：一个铅笔专利权利主张里说，“这一个用石墨和木头组合起来的写字工具”，那么，只要我不用木头和石墨来做组合，而是用塑料来做组合，那么我就不是专利侵权。所以，一般来说，专利主张是会更为通用一些，比如，“这是一个用于涂画表面的装置，其包括：与涂画端相连的握持端”。作者这里给了一个 苹果公司的滑动解锁专利 的示例。可以感受一下产品规格说明和专利权利主张完全是两码事。 
+ Contractural Liability   意思是说，专利方面的东西只会影响专利上的事，而不会影响和专利无关的事，React底层协议是BSD-3许可证还是会被保留。换句话说，React的“强专利反击条款”只生效于专利层面，而不会对非常专利的软件使用产生问题，如果和专利无关，React还是走BSD-3的许可协议。 
+ Copyright Liability   这个和Contractural Liablitity 一样。作者说，如果有人有特别的案例或是有说服力的论据来说明Facebook的这个条款会作用于非专利的地方，那么，请告诉他。 
+ Patent Liability   专利的责任和损害是两件事，非专业人士总是会把其搞混。 
+ 第一个问题是Liability， 要搞清这个事，得搞清“Patent s Claims”，而不是这个技术的技术规格说明，技术规格说明和权力主张是两码事。作者说，现在的很多专利都是一些想法，很多投机份子随便一拍脑袋就发明出一个想法，然后就去注册专利了。但是可以被用来法律执行的只有“Patent s Claims”（专利的权利主张），而不是那些想法。这些权利主张相当相当的晦涩难读，而且是会故意被模糊掉的，因为，当你清楚的定义了你的发明是什么，那么，就可以清楚的定义出来什么不是你的发明。比如：一个铅笔专利权利主张里说，“这一个用石墨和木头组合起来的写字工具”，那么，只要我不用木头和石墨来做组合，而是用塑料来做组合，那么我就不是专利侵权。所以，一般来说，专利主张是会更为通用一些，比如，“这是一个用于涂画表面的装置，其包括：与涂画端相连的握持端”。作者这里给了一个 苹果公司的滑动解锁专利 的示例。可以感受一下产品规格说明和专利权利主张完全是两码事。 
  专利这些事，在法律界里是非常非常困难作出评估的。所以，这个社会每年都会给律师们几十亿美金来一遍又一遍地回答这些问题，而且律师还经常回答错了。而对于美国的法律，对于专利诉讼会有一个叫 Markman hearing的审前听证会 （马克曼听证会），自从1996年美国最高法的“ 马克曼诉威斯幽仪器公司案 ”这个听证会就变成了一个惯例，美国联邦法院用这个听证会来向决定专利权利主张的解释，而且，上诉法院还经常性的推翻审判法院的裁决。（对于美国法律来说，一般是法官认证法律，陪审团认定事实，然而，对于专利而言，1996年的那个案件认为专利术语是一个需要法官决定的法律问题，而不是陪审团决定的事实问题。关于马克曼听证会的事，可以参看本文未尾的附录） 
  所以，要决定Facebook的专利责任，我们需要评估Facebook的专利及其权利主张，而不是技术规格说明。具体来说，要明确Facebook对于React这个底层技术的专利权利主张是什么？但是作者搜了一下，发现什么也没有找到。也就是说，对于USPTO（美国专利商标局）或法院来说，他们没办法对Facebook的这样没有为React申请专利的方式来执行任何和专利的诉讼，也就是说，Facebook的这个React License的条款，美国政府是无法在法律上支持的。 
  第二个问题是专利损害。就算是Facebook可以评估出来一个合法可执行的专利来保护React，对于专利损害也是很有问题的。作者说他到目前还没有发现一个开源软件被专利侵权的事，就算有这样的案例，也不会是这里说的这个事。作者觉得在这个事上操作起来就是一个笑话。 
@@ -1364,8 +1364,8 @@ systemd───dockerd─┬─containerd─┬─3*[containerd-shim─┬─sl
  最后，请允许我调侃一下来结束本文——“不用担心React的许可证问题，因为前端不是一年半就用新的框架重写一次么？”哈哈。 
   更新：Facebook官方于20017年9月23日在其官方blog上发贴《 Relicensing React, Jest, Flow, and Immutable.js 》决定取消之前的带专利的许可证。  
  延伸阅读 
- 马克曼听证会 &#8211; Markman Hearing 
- 马克曼听证会的一些背景知识，下面的文字来源于《 &#8220;马克曼听证&#8221;制度的由来及启示 》 
+ 马克曼听证会   Markman Hearing 
+ 马克曼听证会的一些背景知识，下面的文字来源于《 &#8220;马克曼听证 制度的由来及启示 》 
  与美国专利诉讼的悠长历史相比，1996年才经美国最高法院确立的“马克曼听证”（Markman Hearing，也称为Claim Construction，即权利要求书的解释）无疑是一项年轻的制度。但由于几乎所有的专利侵权诉讼中都会遇到涉案专利权利要求书的解释这一核心问题，且因“马克曼听证”结果往往清楚地预示了案件结果，经“马克曼听证”获得有利结论的一方一旦据此向法庭提起不审即判的动议，专利侵权诉讼往往可就此快速了结，因此该制度的确立成为美国专利诉讼历史上的一件大事。 
  “马克曼听证”制度的由来 
  “马克曼听证”制度确立之前，在专利侵权诉讼中的权利要求书解释，通常交由陪审团在对案件事实进行裁决时一并做出，且并不会在诉讼文件上单独就陪审团这一问题的判断进行记录。1991年，马克曼（Markman）先生因认为其拥有的专利号为RE33054的“干洗衣物贮存及追踪控制装置”专利权被Westview公司所侵犯，遂向宾夕法尼亚州东区联邦地方法院提起了专利侵权诉讼。 
@@ -1385,7 +1385,7 @@ systemd───dockerd─┬─containerd─┬─3*[containerd-shim─┬─sl
  --> 
      关注CoolShell微信公众账号和微信小程序 
  
-  （转载本站文章请注明作者和出处  酷 壳 &#8211; CoolShell  ，请勿用于任何商业用途）  
+  （转载本站文章请注明作者和出处  酷 壳   CoolShell  ，请勿用于任何商业用途）  
  ——===  访问  酷壳404页面  寻找遗失儿童。  ===—— 
 
    相关文章       扎克伯格的一封信：关于Facebook IPO       Quora使用到的技术       程序员练级攻略（2018)  与我的专栏       Facebook 的系统架构       Facebook全球关系网       AWS 的 S3 故障回顾和思考     
@@ -1396,15 +1396,15 @@ systemd───dockerd─┬─containerd─┬─3*[containerd-shim─┬─sl
 	<url>https://coolshell.cn/articles/18094.html</url>
 	<title>如何免费的让网站启用HTTPS</title>
 	<content>  今天，我把CoolShell变成https的安全访问了。我承认这件事有点晚了，因为之前的HTTP的问题也有网友告诉我，被国内的电信运营商在访问我的网站时加入了一些弹窗广告。另外，HTTP的网站在搜索引擎中的rank会更低。所以，这事早就应该干了。现在用HTTP访问CoolShell会被得到一个 301 的HTTPS的跳转。下面我分享一下启用HTTPS的过程。 
- 我用的是  Let&#8217;s Encrypt 这个免费的解决方案。Let&#8217;s Encrypt 是一个于2015年推出的数字证书认证机构，将通过旨在消除当前手动创建和安装证书的复杂过程的自动化流程，为安全网站提供免费的SSL/TLS证书。这是由 互联网安全研究小组 （ISRG &#8211; Internet Security Research Group，一个公益组织）提供的服务。主要赞助商包括 电子前哨基金会 ， Mozilla基金会 ， Akamai 以及Cisco等公司（ 赞助商列表 ）。   
- 2015年6月，Let&#8217;s Encrypt得到了一个存储在硬件安全模块中的离线的RSA根证书。这个由IdenTrust证书签发机构交叉签名的根证书被用于签署两个证书。其中一个就是用于签发请求的证书，另一个则是保存在本地的证书，这个证书用于在上一个证书出问题时作备份证书之用。因为IdenTrust的CA根证书目前已被预置于主流浏览器中，所以Let&#8217;s Encrypt签发的证书可以从项目开始就被识别并接受，甚至当用户的浏览器中没有信任ISRG的根证书时也可以。 
+ 我用的是  Let s Encrypt 这个免费的解决方案。Let s Encrypt 是一个于2015年推出的数字证书认证机构，将通过旨在消除当前手动创建和安装证书的复杂过程的自动化流程，为安全网站提供免费的SSL/TLS证书。这是由 互联网安全研究小组 （ISRG   Internet Security Research Group，一个公益组织）提供的服务。主要赞助商包括 电子前哨基金会 ， Mozilla基金会 ， Akamai 以及Cisco等公司（ 赞助商列表 ）。   
+ 2015年6月，Let s Encrypt得到了一个存储在硬件安全模块中的离线的RSA根证书。这个由IdenTrust证书签发机构交叉签名的根证书被用于签署两个证书。其中一个就是用于签发请求的证书，另一个则是保存在本地的证书，这个证书用于在上一个证书出问题时作备份证书之用。因为IdenTrust的CA根证书目前已被预置于主流浏览器中，所以Let s Encrypt签发的证书可以从项目开始就被识别并接受，甚至当用户的浏览器中没有信任ISRG的根证书时也可以。 
     
- 以上介绍文字来自 Wikipedia 的  Let&#8217;s Encrypt 词条 。 
+ 以上介绍文字来自 Wikipedia 的  Let s Encrypt 词条 。 
  为你的网站来安装一个证书十分简单，只需要使用电子子前哨基金会EFF的  Certbot ，就可以完成。 
  1）首先，打开  https://certbot.eff.org  网页。 
  2）在那个机器上图标下面，你需要选择一下你用的 Web 接入软件 和你的 操作系统。比如，我选的， nginx  和  Ubuntu 14.04  
  3）然后就会跳转到一个安装教程网页。你就照着做一遍就好了。 
- 以Coolshell.cn为例 &#8211; Nginx + Ubuntu 
+ 以Coolshell.cn为例   Nginx + Ubuntu 
  首先先安装相应的环境： 
  
 $ sudo apt-get update
@@ -1435,7 +1435,7 @@ ssl_certificate /etc/letsencrypt/live/coolshell.cn/fullchain.pem; # managed by C
 ssl_certificate_key /etc/letsencrypt/live/coolshell.cn/privkey.pem; # managed by Certbot 
 include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot 
  然后，就  nginx -s reload  就好了。 
- 但是， Let&#8217;s Encrypt 的证书90天就过期了 ，所以，你还要设置上自动化的更新脚本，最容易的莫过于使用  crontab  了。使用  crontab -e  命令加入如下的定时作业（每个月都强制更新一下）： 
+ 但是， Let s Encrypt 的证书90天就过期了 ，所以，你还要设置上自动化的更新脚本，最容易的莫过于使用  crontab  了。使用  crontab -e  命令加入如下的定时作业（每个月都强制更新一下）： 
  0 0 1 * * /usr/bin/certbot renew --force-renewal
 5 0 1 * * /usr/sbin/service nginx restart 
  当然，你也可以每天凌晨1点检查一下： 
@@ -1447,7 +1447,7 @@ include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
  第3个字段：日期 (1-31) 
  第4个字段：月份 (1-12 [12 代表 December]) 
  第5个字段：一周当中的某天 (0-7 [7 或 0 代表星期天]) 
- /path/to/command &#8211; 计划执行的脚本或命令的名称 
+ /path/to/command   计划执行的脚本或命令的名称 
  
   这么方便的同时，我不禁要问，如果是一些恶意的钓鱼网站也让自己的站点变成https的，这个对于一般用来说就有点难以防范了。哎……  
  当然，在nginx或apache上启用HTTPS后，还没有结束。因为你可能还需要修改一下你的网站，不然你的网站在浏览时会出现各种问题。 
@@ -1463,7 +1463,7 @@ include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
  --> 
      关注CoolShell微信公众账号和微信小程序 
  
-  （转载本站文章请注明作者和出处  酷 壳 &#8211; CoolShell  ，请勿用于任何商业用途）  
+  （转载本站文章请注明作者和出处  酷 壳   CoolShell  ，请勿用于任何商业用途）  
  ——===  访问  酷壳404页面  寻找遗失儿童。  ===—— 
 
    相关文章       从“黑掉Github”学Web安全开发       关于移动端的钓鱼式攻击       HTTP API 认证授权术       你会做Web上的用户登录功能吗？       Web工程师的工具箱       bash代码注入的安全漏洞     
@@ -1474,7 +1474,7 @@ include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
 	<url>https://coolshell.cn/articles/18024.html</url>
 	<title>API设计原则 – Qt官网的设计实践总结</title>
 	<content>   （感谢好友  @李鼎  翻译此文）   
- 原文链接： API Design Principles  &#8211;  Qt Wiki  
+ 原文链接： API Design Principles     Qt Wiki  
 基于 Gary的影响力 上  Gary Gao  的译文稿： C++的API设计指导  
  译序 
    
@@ -1690,7 +1690,7 @@ QPointF mapFromItem (const QGraphicsItem *item, const QPointF  point) const;
  4.3.2 返回值：const值 
  调用函数返回的非引用类型的结果，称之为右值（R-value）。 
  非类（non-class）的右值总是无cv限定类型（cv-unqualified type）。虽然从语法上讲，加上const也可以，但是没什么意义，因为鉴于访问权限这些值是不能改变的。多数现代编译器在编译这样的代码时会提示警告信息。 
-  【译注】：cv-qualified的类型（与cv-unqualified相反）是由const或者volatile或者volatile const限定的类型。详见 cv (const and volatile) type qualifiers &#8211; C++语言参考   
+  【译注】：cv-qualified的类型（与cv-unqualified相反）是由const或者volatile或者volatile const限定的类型。详见 cv (const and volatile) type qualifiers   C++语言参考   
  当在类类型（class type）右值上添加const关键字，则禁止访问非const成员函数以及对成员的直接操作。 
  不加const则没有以上的限制，但几乎没有必要加上const，因为右值对象生存时间（life time）的结束一般在C++清理的时候（通俗的说，下一个分号地方），而对右值对象的修改随着右值对象的生存时间也一起结束了（也就是本条语句的执行完成的时候）。 
  示例： 
@@ -1752,7 +1752,7 @@ foreach (const QGraphicsItem *item, scene.items()) {
  在Qt中，我们几乎只有非const的使用模式。我们选择的是实用路子： 相比滥用非const指针返回类型带来的问题，返回const指针更可能招致过分使用const_cast的问题。 
  4.3.4 返回值：按值返回 还是 按const引用返回？ 
  若返回的是对象的拷贝，那么返回const引用是更直接的方案； 然而，这样的做法限制了后面想要对这个类的重构（refactor）。 （以 d-point 的典型做法（idiom）为例，我们可以在任何时候改变Qt类在内存表示（memory representation）；但却不能在不破坏二进制兼容性的情况下把改变函数的签名，返回值从 const QFoo   变为 QFoo 。） 基于这个原因，除去对运行速度敏感（speed is critical）而重构不是问题的个别情形（例如， QList::at() ），我们一般返回 QFoo 而不是 const QFoo   。 
-  【译注】：参看《Effective C++》中条款23：Don&#8217;t try to return a reference when you must return an object  
+  【译注】：参看《Effective C++》中条款23：Don t try to return a reference when you must return an object  
  4.4.5 const vs. 对象的状态 
  const正确性（Const correctness）的问题就像C圈子中vi与emacs的讨论，因为这个话题在很多地方都存在分歧（比如基于指针的函数）。 
  但通用准则是const函数不能改变类的可见状态。『状态』的意思是『自身以及涉及的职责』。这并不是指非const函数能够改变自身的私有成员，也不是指const函数改变不了。而是指函数是活跃的并存在可见的副作用（visible side effects）。const函数一般没有任何可见的副作用，比如： 
@@ -2019,7 +2019,7 @@ while ((child = it.current()) != 0) {
  --> 
      关注CoolShell微信公众账号和微信小程序 
  
-  （转载本站文章请注明作者和出处  酷 壳 &#8211; CoolShell  ，请勿用于任何商业用途）  
+  （转载本站文章请注明作者和出处  酷 壳   CoolShell  ，请勿用于任何商业用途）  
  ——===  访问  酷壳404页面  寻找遗失儿童。  ===—— 
 
    相关文章       从Gitlab误删除数据库想到的       关于高可用的系统       千万不要把 bool 设计成函数参数       Leetcode 编程训练       如何写出无法维护的代码       一个“蝇量级” C 语言协程库     
@@ -2031,7 +2031,7 @@ while ((child = it.current()) != 0) {
 	<title>Linux PID 1 和 Systemd</title>
 	<content>  要说清 Systemd，得先从Linux操作系统的启动说起。Linux 操作系统的启动首先从 BIOS 开始，然后由 Boot Loader 载入内核，并初始化内核。内核初始化的最后一步就是启动 init 进程。这个进程是系统的第一个进程，PID 为 1，又叫超级进程，也叫根进程。它负责产生其他所有用户进程。所有的进程都会被挂在这个进程下，如果这个进程退出了，那么所有的进程都被 kill 。如果一个子进程的父进程退了，那么这个子进程会被挂到 PID 1 下面。（注：PID 0 是内核的一部分，主要用于内进换页，参看： Process identifier ） 
  SysV Init 
- PID 1 这个进程非常特殊，其主要就任务是把整个操作系统带入可操作的状态。比如：启动 UI &#8211; Shell 以便进行人机交互，或者进入 X 图形窗口。传统上，PID 1 和传统的 Unix System V 相兼容的，所以也叫  sysvinit ，这是使用得最悠久的 init 实现。Unix System V 于1983年 release。 
+ PID 1 这个进程非常特殊，其主要就任务是把整个操作系统带入可操作的状态。比如：启动 UI   Shell 以便进行人机交互，或者进入 X 图形窗口。传统上，PID 1 和传统的 Unix System V 相兼容的，所以也叫  sysvinit ，这是使用得最悠久的 init 实现。Unix System V 于1983年 release。 
  在  sysvint  下，有好几个运行模式，又叫  runlevel 。比如：常见的 3 级别指定启动到多用户的字符命令行界面，5 级别指定启起到图形界面，0 表示关机，6 表示重启。其配置在  /etc/inittab  文件中。 
     
  与此配套的还有  /etc/init.d/  和  /etc/rc[X].d ，前者存放各种进程的启停脚本（需要按照规范支持  start ， stop 子命令），后者的 X 表示不同的 runlevel 下相应的后台进程服务，如： /etc/rc3.d  是 runlevel=3 的。 里面的文件主要是 link 到   /etc/init.d/  里的启停脚本。其中也有一定的命名规范：S 或 K 打头的，后面跟一个数字，然后再跟一个自定义的名字，如： S01rsyslog ， S02ssh 。S 表示启动，K表示停止，数字表示执行的顺序。 
@@ -2129,7 +2129,7 @@ while ((child = it.current()) != 0) {
  这篇契文很长，喜欢八卦的同学可以前往一读。感受一下 Lennart 当时的心态（我觉得能算上是非常平稳了）。 
  Linus也在被一媒体问起  systemd  这个事来（参看“ Torvalds says he has no strong opinions on systemd ”），Linus在采访里说， 
   我对  systemd  和 Lennart 的贴子没有什么强烈的想法。虽然，传统的 Unix 设计哲学—— “Do one thing and Do it well”，很不错，而且我们大多数人也实践了这么多年，但是这并不代表所有的真实世界。在历史上，也不只有 systemd  这么干过。但是，我个人还是 old-fashioned 的人，至少我喜欢文本式的日志，而不是二进制的日志。但是  systemd  没有必要一定要有这样的品味。哦，我说细节了……  
- 今天， systemd  占据了几乎所有的主流的 Linux 发行版的默认配置，包括：Arch Linux、CentOS、CoreOS、Debian、Fedora、Megeia、OpenSUSE、RHEL、SUSE企业版和 Ubuntu。而且，对于 CentOS, CoreOS, Fedora, RHEL, SUSE这些发行版来说，不能没有  systemd 。（Ubuntu 还有一个不错的wiki &#8211;  Systemd for Upstart Users  阐述了如何在两者间切换） 
+ 今天， systemd  占据了几乎所有的主流的 Linux 发行版的默认配置，包括：Arch Linux、CentOS、CoreOS、Debian、Fedora、Megeia、OpenSUSE、RHEL、SUSE企业版和 Ubuntu。而且，对于 CentOS, CoreOS, Fedora, RHEL, SUSE这些发行版来说，不能没有  systemd 。（Ubuntu 还有一个不错的wiki    Systemd for Upstart Users  阐述了如何在两者间切换） 
    
  其它 
  还记得在《 缓存更新的套路 》一文中，我说过， 如果你要做好架构，首先你得把计算机体系结构以及很多老古董的基础技术吃透了 。因为里面会有很多可以借鉴和相通的东西。那么，你是否从这篇文章里看到了一些有分布式架构相似的东西？ 
@@ -2149,7 +2149,7 @@ while ((child = it.current()) != 0) {
  --> 
      关注CoolShell微信公众账号和微信小程序 
  
-  （转载本站文章请注明作者和出处  酷 壳 &#8211; CoolShell  ，请勿用于任何商业用途）  
+  （转载本站文章请注明作者和出处  酷 壳   CoolShell  ，请勿用于任何商业用途）  
  ——===  访问  酷壳404页面  寻找遗失儿童。  ===—— 
 
    相关文章       vfork 挂掉的一个问题       Docker基础技术：AUFS       Docker基础技术：Linux Namespace（上）       Unix传奇(上篇)       Docker基础技术：Linux Namespace（下）       Docker基础技术：Linux CGroup     
@@ -2183,7 +2183,7 @@ while ((child = it.current()) != 0) {
  对公司和管理者想说的话 
  下面我来谈谈绩效考核我的一些观点。在谈这个观点前，你可以移步看一下这篇新闻报道——《 绩效主义毁了索尼 》。而近年来，“放弃绩效考核”的斗争已经从科技企业中的Adobe、戴尔、微软、亚马逊，席卷到德勤、埃森哲、普华永道等咨询服务类企业。甚至通用电气（GE）——曾经的绩效管理的鼻祖，也宣布抛弃正式的年度绩效考核。在刚过去的2016年，腾讯的张小龙对微信事业群发出“警惕KPI”的呼声；李彦宏在内部信中将百度的掉队归咎于“从管理层到员工对短期KPI的追逐”；雷军干脆宣布小米“继续坚持‘去KPI’的战略，放下包袱，解掉绳索，开开心心地做事。”；王石也在个人微博中感慨：“绩效主义像企业的脓包”。 
  绩效考核在本质上就是像学校教育以分数论英雄，而忽略员工的成长和素质教育是一个道理。当学生和老师只关注考试分数时，而只有考试分数来评价老师和学生的优良中差时，老师和学生就会开始使用一些非常形式的方式来达到这个目标，比如：死记硬被，记套路，题海战术…… 而学习的能力的考评彻底地沦为了一种形式主义。反而，分数考的越高，脑子越死。（注：美国现行教育是不允许通过学生考试成绩来评价老师的能力的） 
- 近几年来，一些大公司开始使用 OKR &#8211; Objectives, Key Result ，但是在实践过程中，我发现好些公司用OKR，本质上还是KPI &#8211; Key Performance Indicator， 因为OKR里面有一个Key Result，用来衡量 Objectives 的结果指标。于是，使用者习惯性的设置上了KPI。 我个人认为 OKR 有三个非常大的特性：0）由员工提出，1）以目标为导向。2）全员共享。  
+ 近几年来，一些大公司开始使用 OKR   Objectives, Key Result ，但是在实践过程中，我发现好些公司用OKR，本质上还是KPI   Key Performance Indicator， 因为OKR里面有一个Key Result，用来衡量 Objectives 的结果指标。于是，使用者习惯性的设置上了KPI。 我个人认为 OKR 有三个非常大的特性：0）由员工提出，1）以目标为导向。2）全员共享。  
  举个例子，OKR可能会是制定成下面这个样子的： 
  Objectives：增强用户体验， 
  Key Results： 
@@ -2224,7 +2224,7 @@ while ((child = it.current()) != 0) {
  --> 
      关注CoolShell微信公众账号和微信小程序 
  
-  （转载本站文章请注明作者和出处  酷 壳 &#8211; CoolShell  ，请勿用于任何商业用途）  
+  （转载本站文章请注明作者和出处  酷 壳   CoolShell  ，请勿用于任何商业用途）  
  ——===  访问  酷壳404页面  寻找遗失儿童。  ===—— 
 
    相关文章       什么是工程师文化？       技术人员的发展之路       从Code Review 谈如何做技术       关于高可用的系统       让我们来谈谈分工       「我只是认真」聊聊工匠情怀     
@@ -2418,10 +2418,10 @@ while ((child = it.current()) != 0) {
  --> 
      关注CoolShell微信公众账号和微信小程序 
  
-  （转载本站文章请注明作者和出处  酷 壳 &#8211; CoolShell  ，请勿用于任何商业用途）  
+  （转载本站文章请注明作者和出处  酷 壳   CoolShell  ，请勿用于任何商业用途）  
  ——===  访问  酷壳404页面  寻找遗失儿童。  ===—— 
 
-   相关文章       技术人员的发展之路       什么是工程师文化？       这多年来我一直在钻研的技术       关于高可用的系统       「我只是认真」聊聊工匠情怀       互联网之子 &#8211; Aaron Swartz     
+   相关文章       技术人员的发展之路       什么是工程师文化？       这多年来我一直在钻研的技术       关于高可用的系统       「我只是认真」聊聊工匠情怀       互联网之子   Aaron Swartz     
 </content>
 </doc>
 <doc>
@@ -2435,9 +2435,9 @@ while ((child = it.current()) != 0) {
  HTTP Basic 
  Digest Access 
  App Secret Key + HMAC 
- JWT &#8211; JSON Web Tokens 
- OAuth 1.0 &#8211; 3 legged   2 legged 
- OAuth 2.0 &#8211; Authentication Code   Client Credential 
+ JWT   JSON Web Tokens 
+ OAuth 1.0   3 legged   2 legged 
+ OAuth 2.0   Authentication Code   Client Credential 
  
     
  HTTP Basic 
@@ -2453,7 +2453,7 @@ while ((child = it.current()) != 0) {
  但我们还是要知道，这种把用户名和密码同时放在公网上传输的方式有点不太好，因为Base64不是加密协议，而是编码协议，所以就算是有HTTPS作为安全保护，给人的感觉还是不放心。 
  Digest Access 
  中文称“HTTP 摘要认证”，最初被定义在了  RFC 2069  文档中（后来被  RFC 2617  引入了一系列安全增强的选项；“保护质量”(qop)、随机数计数器由客户端增加、以及客户生成的随机数）。 
- 其基本思路是，请求方把用户名口令和域做一个MD5 &#8211;   MD5(username:realm:password)  然后传给服务器，这样就不会在网上传用户名和口令了，但是，因为用户名和口令基本不会变，所以，这个MD5的字符串也是比较固定的，因此，这个认证过程在其中加入了两个事，一个是  nonce  另一个是  qop  
+ 其基本思路是，请求方把用户名口令和域做一个MD5     MD5(username:realm:password)  然后传给服务器，这样就不会在网上传用户名和口令了，但是，因为用户名和口令基本不会变，所以，这个MD5的字符串也是比较固定的，因此，这个认证过程在其中加入了两个事，一个是  nonce  另一个是  qop  
  
  首先，调用方发起一个普通的HTTP请求。比如： GET /coolshell/admin/ HTTP/1.1  
  服务端自然不能认证能过，服务端返回401错误，并且在HTTP头里的  WWW-Authenticate  包含如下信息： 
@@ -2483,10 +2483,10 @@ Authorization: Digest username="Mufasa",
  维基百科上的  Wikipedia: Digest access authentication  词条非常详细地描述了这个细节。 
  摘要认证这个方式会比之前的方式要好一些，因为没有在网上传递用户的密码，而只是把密码的MD5传送过去，相对会比较安全，而且，其并不需要是否TLS/SSL的安全链接。但是， 别看这个算法这么复杂，最后你可以发现，整个过程其实关键是用户的password，这个password如果不够得杂，其实是可以被暴力破解的，而且，整个过程是非常容易受到中间人攻击 ——比如一个中间人告诉客户端需要的 Basic 的认证方式 或是 老旧签名认证方式（RFC2069）。 
  App Secret Key + HMAC 
- 先说HMAC技术，这个东西来自于MAC &#8211;  Message Authentication Code ，是一种用于给消息签名的技术，也就是说，我们怕消息在传递的过程中被人修改，所以，我们需要用对消息进行一个MAC算法，得到一个摘要字串，然后，接收方得到消息后，进行同样的计算，然后比较这个MAC字符串，如果一致，则表明没有被修改过（整个过程参看下图）。而HMAC &#8211;  Hash-based Authenticsation Code ，指的是利用Hash技术完成这一工作，比如：SHA-256算法。 
+ 先说HMAC技术，这个东西来自于MAC    Message Authentication Code ，是一种用于给消息签名的技术，也就是说，我们怕消息在传递的过程中被人修改，所以，我们需要用对消息进行一个MAC算法，得到一个摘要字串，然后，接收方得到消息后，进行同样的计算，然后比较这个MAC字符串，如果一致，则表明没有被修改过（整个过程参看下图）。而HMAC    Hash-based Authenticsation Code ，指的是利用Hash技术完成这一工作，比如：SHA-256算法。 
    
    
- （图片来自  Wikipedia &#8211; MAC 词条  ） 
+ （图片来自  Wikipedia   MAC 词条  ） 
  我们再来说App ID，这个东西跟验证没有关系，只是用来区分，是谁来调用API的，就像我们每个人的身份证一样，只是用来标注不同的人，不是用来做身份认证的。与前面的不同之处是，这里，我们需要用App ID 来映射一个用于加密的密钥，这样一来，我们就可以在服务器端进行相关的管理，我们可以生成若干个密钥对（AppID, AppSecret），并可以有更细粒度的操作权限管理。 
  把AppID和HMAC用于API认证，目前来说，玩得最好最专业的应该是AWS了，我们可以通过 S3的API请求签名文档 看到AWS是怎么玩的。整个过程还是非常复杂的，可以通过下面的图片流程看个大概。基本上来说，分成如下几个步骤： 
  
@@ -2506,7 +2506,7 @@ Authorization: Digest username="Mufasa",
    
  其中的   AKIDEXAMPLE  是 AWS Access Key ID， 也就是所谓的 AppID，服务器端会根据这个AppID来查相关的 Secret Access Key，然后再验证签名。如果，你对这个过程有点没看懂的话，你可以读一读这篇文章——《 Amazon S3 Rest API with curl 》这篇文章里有好些代码，代码应该是最有细节也是最准确的了。 
  这种认证的方式好处在于，AppID和AppSecretKey，是由服务器的系统开出的，所以，是可以被管理的，AWS的IAM就是相关的管理，其管理了用户、权限和其对应的AppID和AppSecretKey。但是不好的地方在于，这个东西没有标准 ，所以，各家的实现很不一致。比如：  Acquia 的 HMAC ， 微信的签名算法  （这里，我们需要说明一下，微信的API没有遵循HTTP协议的标准，把认证信息放在HTTP 头的  Authorization  里，而是放在body里） 
- JWT &#8211; JSON Web Tokens 
+ JWT   JSON Web Tokens 
  JWT是一个比较标准的认证解决方案，这个技术在Java圈里应该用的是非常普遍的。JWT签名也是一种MAC（ Message Authentication Code ）的方法。JWT的签名流程一般是下面这个样子： 
  
  用户使用用户名和口令到认证服务器上请求认证。 
@@ -2722,7 +2722,7 @@ grant_type=client_credentials
  --> 
      关注CoolShell微信公众账号和微信小程序 
  
-  （转载本站文章请注明作者和出处  酷 壳 &#8211; CoolShell  ，请勿用于任何商业用途）  
+  （转载本站文章请注明作者和出处  酷 壳   CoolShell  ，请勿用于任何商业用途）  
  ——===  访问  酷壳404页面  寻找遗失儿童。  ===—— 
 
    相关文章       从“黑掉Github”学Web安全开发       如何免费的让网站启用HTTPS       关于移动端的钓鱼式攻击       从 MongoDB “赎金事件” 看安全问题       C语言的整型溢出问题       bash代码注入的安全漏洞     
@@ -2767,7 +2767,7 @@ grant_type=client_credentials
  下面我们再来看一个年龄图： 
    
  调查报告从20岁开始每隔5年划分一个年龄段，我们不难发现从25-29岁开始每个年龄段都比前一个年龄段人数急剧减少大约30-50%，比如25-29年龄段占总人数27.6%，而30-34则只有19.3%。以此类推，到60岁以上，就只剩1%。可以看出5年是大多数程序员的转型周期。这是合理的，因为5年时间足够一个人积累足够的经验技能为职业转型做准备。 
- 我们也可以看到50岁以上的程序员只有4.2%，大约是参与调查人员的300多人，如果这些人20岁左右参加工作，那么说明他们在1990左右就开始写代码，事实上那个时间点别说是程序员了，连电脑用户都不多。 电脑和互联网真正暴发的时间还是在1995年 &#8211; 2000年之间，不过，那个时间点程序员的总体人数也不多，而行业越来越火才会导致大量的人进入到这个行业中，这个转换过程基本上去需要3-5年，也就是从2000年后才开始有大量的人拥入程序员这个行业，程序员的人数在过去30年间也是呈增涨态势的，所以，我个人认为，所谓的“众多老程序员”的比例会被2005年以后大量拥入程序员行业的年青人所“稀释”。所以，上图的比例不能完全说明程序员是个青春饭 。 
+ 我们也可以看到50岁以上的程序员只有4.2%，大约是参与调查人员的300多人，如果这些人20岁左右参加工作，那么说明他们在1990左右就开始写代码，事实上那个时间点别说是程序员了，连电脑用户都不多。 电脑和互联网真正暴发的时间还是在1995年   2000年之间，不过，那个时间点程序员的总体人数也不多，而行业越来越火才会导致大量的人进入到这个行业中，这个转换过程基本上去需要3-5年，也就是从2000年后才开始有大量的人拥入程序员这个行业，程序员的人数在过去30年间也是呈增涨态势的，所以，我个人认为，所谓的“众多老程序员”的比例会被2005年以后大量拥入程序员行业的年青人所“稀释”。所以，上图的比例不能完全说明程序员是个青春饭 。 
  但是，我们还是要正视老牌资深的程序员越来越少的这个事实，在这份报告第三部分中说了一些和程序员职业生涯相关的调查，如下： 
  
   在被问到有多少人对自己的职业满意的时 。有40%的人觉得很满意，而有34.3%的人觉得一般满意，有10%的人说不清，还有15%的人是不满意的。可以看到有不少人是对这个职业生涯是有想法的。 
@@ -2825,13 +2825,13 @@ grant_type=client_credentials
    
  从上面这个图中，我们可以看以技术的几圈子： 
  
-  Microsoft圈  &#8211; Windows、.NET、ASP.NET、C#、Azure、SQL Server 
-  Java圈  &#8211; Java、Spring 
-  手机圈  &#8211; Android、 iOS、Kotlin、Swift、Firebase 
-  前端圈  &#8211; Javascript、React.js、Angular.js、PHP 
-  大数据圈  &#8211; Python、TensorFlow、Torch/PyTorch 
-  基础平台圈  &#8211; Linux、Shell、Vim、Docker、Kubernetes、Elasticsearch、Redis…… 
-  其它圈子  &#8211; C/C++/汇编圈子、Ruby圈子、Hadoop/Spark圈子、…… 
+  Microsoft圈    Windows、.NET、ASP.NET、C#、Azure、SQL Server 
+  Java圈    Java、Spring 
+  手机圈    Android、 iOS、Kotlin、Swift、Firebase 
+  前端圈    Javascript、React.js、Angular.js、PHP 
+  大数据圈    Python、TensorFlow、Torch/PyTorch 
+  基础平台圈    Linux、Shell、Vim、Docker、Kubernetes、Elasticsearch、Redis…… 
+  其它圈子    C/C++/汇编圈子、Ruby圈子、Hadoop/Spark圈子、…… 
  
   看到谁的圈子大了吧，圈子大的并不代表技术实力强或是有前途，不过可以代表在那个圈子相关的关联技术，一方面，可以给你一些相关的参考，另一方面，整体可以让你看到全部的目前比较主流的技术。  
  第三部份 工作 
@@ -2852,7 +2852,7 @@ grant_type=client_credentials
  --> 
      关注CoolShell微信公众账号和微信小程序 
  
-  （转载本站文章请注明作者和出处  酷 壳 &#8211; CoolShell  ，请勿用于任何商业用途）  
+  （转载本站文章请注明作者和出处  酷 壳   CoolShell  ，请勿用于任何商业用途）  
  ——===  访问  酷壳404页面  寻找遗失儿童。  ===—— 
 
    相关文章       关于高可用的系统       技术人员的发展之路       什么是工程师文化？       这多年来我一直在钻研的技术       Leetcode 编程训练       从Gitlab误删除数据库想到的     
@@ -2890,10 +2890,10 @@ grant_type=client_credentials
  --> 
      关注CoolShell微信公众账号和微信小程序 
  
-  （转载本站文章请注明作者和出处  酷 壳 &#8211; CoolShell  ，请勿用于任何商业用途）  
+  （转载本站文章请注明作者和出处  酷 壳   CoolShell  ，请勿用于任何商业用途）  
  ——===  访问  酷壳404页面  寻找遗失儿童。  ===—— 
 
-   相关文章       什么是工程师文化？       从Code Review 谈如何做技术       关于高可用的系统       技术人员的发展之路       让我们来谈谈分工       互联网之子 &#8211; Aaron Swartz     
+   相关文章       什么是工程师文化？       从Code Review 谈如何做技术       关于高可用的系统       技术人员的发展之路       让我们来谈谈分工       互联网之子   Aaron Swartz     
 </content>
 </doc>
 <doc>
@@ -3082,7 +3082,7 @@ gnudate() {
  使用  $()  而不是 &#8220; 来获得命令行的输出，主要原因是易读。 
  小心不同的平台，尤其是 MacOS 和 Linux 的跨平台。 
  对于  rm -rf  这样的高危操作，需要检查后面的变量名是否为空，比如： rm -rf $MYDIDR/*  如果  $MYDIR 为空，结果是灾难性的。 
- 考虑使用 &#8220;find/while&#8221; 而不是 “for/find”。如： for F in $(find . -type f) ; do echo $F; done  写成  find . -type f | while read F ; do echo $F ; done  不但可以容忍空格，而且还更快。 
+ 考虑使用 &#8220;find/while  而不是 “for/find”。如： for F in $(find . -type f) ; do echo $F; done  写成  find . -type f | while read F ; do echo $F ; done  不但可以容忍空格，而且还更快。 
  防御式编程，在正式执行命令前，把相关的东西都检查好，比如，文件目录有没有存在。 
  
  你还可以使用ShellCheck 来帮助你检查你的脚本。 
@@ -3126,7 +3126,7 @@ gnudate() {
  --> 
      关注CoolShell微信公众账号和微信小程序 
  
-  （转载本站文章请注明作者和出处  酷 壳 &#8211; CoolShell  ，请勿用于任何商业用途）  
+  （转载本站文章请注明作者和出处  酷 壳   CoolShell  ，请勿用于任何商业用途）  
  ——===  访问  酷壳404页面  寻找遗失儿童。  ===—— 
 
    相关文章       应该知道的Linux技巧       你可能不知道的Shell       Docker基础技术：AUFS       bash代码注入的安全漏洞       Docker基础技术：DeviceMapper       Docker基础技术：Linux Namespace（下）     
@@ -3201,7 +3201,7 @@ Small minds discuss people
  --> 
      关注CoolShell微信公众账号和微信小程序 
  
-  （转载本站文章请注明作者和出处  酷 壳 &#8211; CoolShell  ，请勿用于任何商业用途）  
+  （转载本站文章请注明作者和出处  酷 壳   CoolShell  ，请勿用于任何商业用途）  
  ——===  访问  酷壳404页面  寻找遗失儿童。  ===—— 
 
    相关文章       技术人员的发展之路       什么是工程师文化？       这多年来我一直在钻研的技术       关于高可用的系统       Leetcode 编程训练       「我只是认真」聊聊工匠情怀     
@@ -3264,7 +3264,7 @@ $ ls /var/run/docker/netns | xargs -I {} nsenter --net=/var/run/docker/netns/{} 
   10.233.14.145  我们查到了这个IP，说明，docker的namespace下还有这个IP。 
   10.233.14.137 ，这个IP没有在docker的network namespace下查到。 
  
- 有namespace leaking？于是我上网查了一下，发现了一个docker的bug &#8211; 在docker remove/stop 一个容器的时候，没有清除相应的network namespace，这个问题被报告到了  Issue#31597  然后被fix在了  PR#31996 ，并Merge到了 Docker的 17.05版中。而用户的版本是 17.09，应该包含了这个fix。不应该是这个问题，感觉又走不下去了。 
+ 有namespace leaking？于是我上网查了一下，发现了一个docker的bug   在docker remove/stop 一个容器的时候，没有清除相应的network namespace，这个问题被报告到了  Issue#31597  然后被fix在了  PR#31996 ，并Merge到了 Docker的 17.05版中。而用户的版本是 17.09，应该包含了这个fix。不应该是这个问题，感觉又走不下去了。 
  不过，  10.233.14.137  这个IP可以ping得通，说明这个IP一定被绑在某个网卡，而且被隐藏到了某个network namespace下。 
  到这里，要查看所有network namespace，只有最后一条路了，那就是到  /proc/  目录下，把所有的pid下的  /proc/ pid /ns  目录给穷举出来。好在这里有一个比较方便的命令可以干这个事 ：  lsns  
  于是我写下了如下的命令： 
@@ -3339,7 +3339,7 @@ systemd───dockerd─┬─containerd─┬─3*[containerd-shim─┬─sl
  --> 
      关注CoolShell微信公众账号和微信小程序 
  
-  （转载本站文章请注明作者和出处  酷 壳 &#8211; CoolShell  ，请勿用于任何商业用途）  
+  （转载本站文章请注明作者和出处  酷 壳   CoolShell  ，请勿用于任何商业用途）  
  ——===  访问  酷壳404页面  寻找遗失儿童。  ===—— 
 
    相关文章       Docker基础技术：Linux CGroup       Docker基础技术：DeviceMapper       Docker基础技术：AUFS       Docker基础技术：Linux Namespace（下）       Docker基础技术：Linux Namespace（上）       Linux PID 1 和 Systemd     
@@ -3389,7 +3389,7 @@ systemd───dockerd─┬─containerd─┬─3*[containerd-shim─┬─sl
  --> 
      关注CoolShell微信公众账号和微信小程序 
  
-  （转载本站文章请注明作者和出处  酷 壳 &#8211; CoolShell  ，请勿用于任何商业用途）  
+  （转载本站文章请注明作者和出处  酷 壳   CoolShell  ，请勿用于任何商业用途）  
  ——===  访问  酷壳404页面  寻找遗失儿童。  ===—— 
 
    相关文章       关于高可用的系统       程序员技术练级攻略       从Gitlab误删除数据库想到的       对技术的态度       如何学好C语言       Leetcode 编程训练     
@@ -3403,9 +3403,9 @@ systemd───dockerd─┬─containerd─┬─3*[containerd-shim─┬─sl
  为什么要开设一个收费专栏 
  首先，说一下，为什么要开这个收费专栏。 
  老实说，我一开始根本就不想开收费专栏的，是的，完全不想！主要是有两个原因，一方面是我在创业中，我自然是没有太多的时间，另一方面是，我以前在《 为什么我不在微信公众号上写文章 》也说过，我觉得知识最好的方式是被检索、讨论、引用、整理、补充和更新。所以，收费这种模式，我感觉并不利于很好的传播。但是，我为什么还干了这么一件事？这事还得从2017年6月份开始说起。 
- 这个月，一共有三家技术社区来找我，都是希望我能去他们那边开收费专栏，其中一家就是“极客邦科技”。对于这三家来说，从一开始我就是以婉拒的姿态回应的。而“极客邦科技”来找我的时候和我说，一周写五篇，写一年，一共260篇。我当时心想，“去你的，当我啥呢，你们真以为技术文章好写啊&#8221;？然后，他们问我可以写多少，我说，我现在也就一个月一篇的节奏…… 
+ 这个月，一共有三家技术社区来找我，都是希望我能去他们那边开收费专栏，其中一家就是“极客邦科技”。对于这三家来说，从一开始我就是以婉拒的姿态回应的。而“极客邦科技”来找我的时候和我说，一周写五篇，写一年，一共260篇。我当时心想，“去你的，当我啥呢，你们真以为技术文章好写啊 ？然后，他们问我可以写多少，我说，我现在也就一个月一篇的节奏…… 
     
- 然后，就开始了时间漫长的拉锯战。极客邦这边一直从6月份和我谈到9月份，完全就是不达目的不罢休的玩法，其间，每当我说一个问题，他们就会想出一个解，我这边不断地制造不能写下去的问题，他们就不断的给出相应的解。我其实是想让他们知难而退，另外，我也不确定这帮人对于这个事有多上心，因为写技术文章是需要非常认真的态度的，所以，我提出了很多比较苛刻的条件，甚至也很直白的直接拒绝，但是他们完全就跟没有听见似的，不断的想新的方法来让我&#8221;上床&#8221;（对！就是上床，不是上船）。 
+ 然后，就开始了时间漫长的拉锯战。极客邦这边一直从6月份和我谈到9月份，完全就是不达目的不罢休的玩法，其间，每当我说一个问题，他们就会想出一个解，我这边不断地制造不能写下去的问题，他们就不断的给出相应的解。我其实是想让他们知难而退，另外，我也不确定这帮人对于这个事有多上心，因为写技术文章是需要非常认真的态度的，所以，我提出了很多比较苛刻的条件，甚至也很直白的直接拒绝，但是他们完全就跟没有听见似的，不断的想新的方法来让我 上床 （对！就是上床，不是上船）。 
  
  我说，我最多一个月写2-3篇。他们和我说，我们看过了，你写的都是长文，都在5000字左右，一篇可以拆成上下篇，这样就有6篇左右了，然后，你每个月再来两篇文章，一篇是推荐一些资料或资源，一篇是回答读者的问题。这样就有8篇了，一周就可以发2篇了。 
  
@@ -3464,7 +3464,7 @@ systemd───dockerd─┬─containerd─┬─3*[containerd-shim─┬─sl
  --> 
      关注CoolShell微信公众账号和微信小程序 
  
-  （转载本站文章请注明作者和出处  酷 壳 &#8211; CoolShell  ，请勿用于任何商业用途）  
+  （转载本站文章请注明作者和出处  酷 壳   CoolShell  ，请勿用于任何商业用途）  
  ——===  访问  酷壳404页面  寻找遗失儿童。  ===—— 
 
    相关文章       DHH 谈混合移动应用开发       Google Inbox如何跨平台重用代码？       HTML6 展望       两本电子书       一些文章资源和趣闻       一些非常有意思的杂项资源     
@@ -3555,7 +3555,7 @@ systemd───dockerd─┬─containerd─┬─3*[containerd-shim─┬─sl
  --> 
      关注CoolShell微信公众账号和微信小程序 
  
-  （转载本站文章请注明作者和出处  酷 壳 &#8211; CoolShell  ，请勿用于任何商业用途）  
+  （转载本站文章请注明作者和出处  酷 壳   CoolShell  ，请勿用于任何商业用途）  
  ——===  访问  酷壳404页面  寻找遗失儿童。  ===—— 
 
    相关文章       Go语言的修饰器编程       Go 语言简介（上）— 语法       Go 语言简介（下）— 特性       Docker基础技术：Linux Namespace（上）       Docker基础技术：DeviceMapper       Docker基础技术：Linux Namespace（下）     
@@ -3565,7 +3565,7 @@ systemd───dockerd─┬─containerd─┬─3*[containerd-shim─┬─sl
 	<docid>46</docid>
 	<url>https://coolshell.cn/articles/18140.html</url>
 	<title>关于Facebook 的 React 专利许可证</title>
-	<content>  随着Apache、百度、Wordpress都在和Facebook的React.js以及其专利许可证划清界限，似乎大家又在讨论Facebook的这个BSD+PATENT的许可证问题了。这让我想起了之前在Medium读过的一篇文章——《 React, Facebook, and the Revocable Patent License, Why It&#8217;s a Paper 》，我觉得那篇文章写的不错，而且还是一个会编程的律师写的，所以有必要把这篇文章传播到中文社区这边来。注意，我不会全部翻译，我只是用我的语言来负责搬运内容和观点，我只想通过这篇文章让大家了解一下这个世界以及专利相关的知识，这样可以避免你看到某乎的“怎么看待XXX”这类的问题时人云亦云，能有自己的独立思考和自我判断。;-) 
+	<content>  随着Apache、百度、Wordpress都在和Facebook的React.js以及其专利许可证划清界限，似乎大家又在讨论Facebook的这个BSD+PATENT的许可证问题了。这让我想起了之前在Medium读过的一篇文章——《 React, Facebook, and the Revocable Patent License, Why It s a Paper 》，我觉得那篇文章写的不错，而且还是一个会编程的律师写的，所以有必要把这篇文章传播到中文社区这边来。注意，我不会全部翻译，我只是用我的语言来负责搬运内容和观点，我只想通过这篇文章让大家了解一下这个世界以及专利相关的知识，这样可以避免你看到某乎的“怎么看待XXX”这类的问题时人云亦云，能有自己的独立思考和自我判断。;-) 
  这篇文章的作者叫Dennis Walsh，他自称是亚历桑那和加利福尼亚州的律师，主要针对版权法和专利诉论的法律领域。但是这个律师不一样，他更很喜欢商业和软件多一些。现在他用React/GraphQL/Elixir在写一个汽车代理销售相关的软件，而且已经发布到第2版了。 
  首先，作者表明，专利法经常被人误解，因为其实充满了各种晦涩难懂的法律术语，所以，作者用个例子来讲述专利的一个原则 ——  专利并不是授于让你制造或开发的权利，而是授予你可以排他的权利。（ 事实上似乎也是这样，申请专利很多时候都不是为了制作相关的产品，而是为了防止别人使用类似的技术制作相关的产品） 
     
@@ -3573,17 +3573,17 @@ systemd───dockerd─┬─containerd─┬─3*[containerd-shim─┬─sl
  所以，公司Y的橡皮擦专利又被广泛地叫作“ Blocking Patent ”。公司Y不能说他发明了铅笔，因为这是公司X的专利，但是，他们可以让公司X无法对铅笔做出某些改进。 
  于是，因为这种 Blocking Patent 存在，对于开源的公司是不利的，因为根据上面的那个例子来说，开源公司就是公司X，他们做了一个基础的软件，而公司Y在上面做了些改进，并注册成了专利，从而导致开源的公司X无法对它基础开源软件作出被公司Y专利阻止的改进，开源的公司X希望能够自由地使用公司Y的橡皮擦专利，因为毕竟是它发明了铅笔并放弃了铅笔的专利。 
  于是就出来了“专利反击条款”（ Patent Retaliation Clauses ）。一般来说有两种专利条款，一种是弱条款，一种是强条款。 
- Weak Patent Retaliation Clauses &#8211; 这种条款声明，如果许可证持有者用某个专利来打击许可证颁布者，那么专利就视为终止。用人话来表达就是，公司X做了一个开源铅笔，而公司Y注册了橡皮檫专利。此时，公司X做了一支带像皮擦的铅笔，而公司Y马上对公司X提起专利侵权诉讼。那么，公司Y就失去了对底层铅笔的专利控制。（正如前面所说的，公司Y的橡皮擦专利因为在起诉公司X的开源铅笔，而失去了对开源铅笔的专利排他权利） 
- Strong Patent Retailiation Clauses &#8211; 这种条款声明比“弱条款”要的更多。具体来说就是，任何专利声明终结许可证，而不管这个专利有没有和你基础的软件有关系。用人话来说就是，公司Y使用他们的热气球专利来起诉公司X，那么公司Y就失去了他们对铅笔的专利限制。 
+ Weak Patent Retaliation Clauses   这种条款声明，如果许可证持有者用某个专利来打击许可证颁布者，那么专利就视为终止。用人话来表达就是，公司X做了一个开源铅笔，而公司Y注册了橡皮檫专利。此时，公司X做了一支带像皮擦的铅笔，而公司Y马上对公司X提起专利侵权诉讼。那么，公司Y就失去了对底层铅笔的专利控制。（正如前面所说的，公司Y的橡皮擦专利因为在起诉公司X的开源铅笔，而失去了对开源铅笔的专利排他权利） 
+ Strong Patent Retailiation Clauses   这种条款声明比“弱条款”要的更多。具体来说就是，任何专利声明终结许可证，而不管这个专利有没有和你基础的软件有关系。用人话来说就是，公司Y使用他们的热气球专利来起诉公司X，那么公司Y就失去了他们对铅笔的专利限制。 
  我个人理解起来，这两种条款看上去是防御性质的。 
  Facebook的React的Patent License如下： 
   The license granted hereunder will terminate, automatically and without notice,if you (or any of your subsidiaries, corporate affiliates or agents) initiatedirectly or indirectly, or take a direct financial interest in, any Patent Assertion: (i) against Facebook or any of its subsidiaries or corporateaffiliates, (ii) against any party if such Patent Assertion arises in whole orin part from any software, technology, product or service of Facebook or any ofits subsidiaries or corporate affiliates, or (iii) against any party relating to the Software. Notwithstanding the foregoing, if Facebook or any of itssubsidiaries or corporate affiliates files a lawsuit alleging patentinfringement against you in the first instance, and you respond by filing apatent infringement counterclaim in that lawsuit against that party that isunrelated to the Software, the license granted hereunder will not terminateunder section (i) of this paragraph due to such counterclaim.  
  这些条款中和基础软件没有任何关系，所以， 这个条款是“强专利反击条款” 。 
  在后面，本文的作者又解解释了，为什么React的“强专利反击条款”就跟没有似的。他在文中针对一些歇斯底里的言论，如：“Facebook不用害怕专利诉讼了，而且他可以随时偷袭你家的专利仓库”，也作出了一些解释来分析这个事。 
- Contractural Liability &#8211; 意思是说，专利方面的东西只会影响专利上的事，而不会影响和专利无关的事，React底层协议是BSD-3许可证还是会被保留。换句话说，React的“强专利反击条款”只生效于专利层面，而不会对非常专利的软件使用产生问题，如果和专利无关，React还是走BSD-3的许可协议。 
- Copyright Liability &#8211; 这个和Contractural Liablitity 一样。作者说，如果有人有特别的案例或是有说服力的论据来说明Facebook的这个条款会作用于非专利的地方，那么，请告诉他。 
- Patent Liability &#8211; 专利的责任和损害是两件事，非专业人士总是会把其搞混。 
- 第一个问题是Liability， 要搞清这个事，得搞清“Patent&#8217;s Claims”，而不是这个技术的技术规格说明，技术规格说明和权力主张是两码事。作者说，现在的很多专利都是一些想法，很多投机份子随便一拍脑袋就发明出一个想法，然后就去注册专利了。但是可以被用来法律执行的只有“Patent&#8217;s Claims”（专利的权利主张），而不是那些想法。这些权利主张相当相当的晦涩难读，而且是会故意被模糊掉的，因为，当你清楚的定义了你的发明是什么，那么，就可以清楚的定义出来什么不是你的发明。比如：一个铅笔专利权利主张里说，“这一个用石墨和木头组合起来的写字工具”，那么，只要我不用木头和石墨来做组合，而是用塑料来做组合，那么我就不是专利侵权。所以，一般来说，专利主张是会更为通用一些，比如，“这是一个用于涂画表面的装置，其包括：与涂画端相连的握持端”。作者这里给了一个 苹果公司的滑动解锁专利 的示例。可以感受一下产品规格说明和专利权利主张完全是两码事。 
+ Contractural Liability   意思是说，专利方面的东西只会影响专利上的事，而不会影响和专利无关的事，React底层协议是BSD-3许可证还是会被保留。换句话说，React的“强专利反击条款”只生效于专利层面，而不会对非常专利的软件使用产生问题，如果和专利无关，React还是走BSD-3的许可协议。 
+ Copyright Liability   这个和Contractural Liablitity 一样。作者说，如果有人有特别的案例或是有说服力的论据来说明Facebook的这个条款会作用于非专利的地方，那么，请告诉他。 
+ Patent Liability   专利的责任和损害是两件事，非专业人士总是会把其搞混。 
+ 第一个问题是Liability， 要搞清这个事，得搞清“Patent s Claims”，而不是这个技术的技术规格说明，技术规格说明和权力主张是两码事。作者说，现在的很多专利都是一些想法，很多投机份子随便一拍脑袋就发明出一个想法，然后就去注册专利了。但是可以被用来法律执行的只有“Patent s Claims”（专利的权利主张），而不是那些想法。这些权利主张相当相当的晦涩难读，而且是会故意被模糊掉的，因为，当你清楚的定义了你的发明是什么，那么，就可以清楚的定义出来什么不是你的发明。比如：一个铅笔专利权利主张里说，“这一个用石墨和木头组合起来的写字工具”，那么，只要我不用木头和石墨来做组合，而是用塑料来做组合，那么我就不是专利侵权。所以，一般来说，专利主张是会更为通用一些，比如，“这是一个用于涂画表面的装置，其包括：与涂画端相连的握持端”。作者这里给了一个 苹果公司的滑动解锁专利 的示例。可以感受一下产品规格说明和专利权利主张完全是两码事。 
  专利这些事，在法律界里是非常非常困难作出评估的。所以，这个社会每年都会给律师们几十亿美金来一遍又一遍地回答这些问题，而且律师还经常回答错了。而对于美国的法律，对于专利诉讼会有一个叫 Markman hearing的审前听证会 （马克曼听证会），自从1996年美国最高法的“ 马克曼诉威斯幽仪器公司案 ”这个听证会就变成了一个惯例，美国联邦法院用这个听证会来向决定专利权利主张的解释，而且，上诉法院还经常性的推翻审判法院的裁决。（对于美国法律来说，一般是法官认证法律，陪审团认定事实，然而，对于专利而言，1996年的那个案件认为专利术语是一个需要法官决定的法律问题，而不是陪审团决定的事实问题。关于马克曼听证会的事，可以参看本文未尾的附录） 
  所以，要决定Facebook的专利责任，我们需要评估Facebook的专利及其权利主张，而不是技术规格说明。具体来说，要明确Facebook对于React这个底层技术的专利权利主张是什么？但是作者搜了一下，发现什么也没有找到。也就是说，对于USPTO（美国专利商标局）或法院来说，他们没办法对Facebook的这样没有为React申请专利的方式来执行任何和专利的诉讼，也就是说，Facebook的这个React License的条款，美国政府是无法在法律上支持的。 
  第二个问题是专利损害。就算是Facebook可以评估出来一个合法可执行的专利来保护React，对于专利损害也是很有问题的。作者说他到目前还没有发现一个开源软件被专利侵权的事，就算有这样的案例，也不会是这里说的这个事。作者觉得在这个事上操作起来就是一个笑话。 
@@ -3596,8 +3596,8 @@ systemd───dockerd─┬─containerd─┬─3*[containerd-shim─┬─sl
  最后，请允许我调侃一下来结束本文——“不用担心React的许可证问题，因为前端不是一年半就用新的框架重写一次么？”哈哈。 
   更新：Facebook官方于20017年9月23日在其官方blog上发贴《 Relicensing React, Jest, Flow, and Immutable.js 》决定取消之前的带专利的许可证。  
  延伸阅读 
- 马克曼听证会 &#8211; Markman Hearing 
- 马克曼听证会的一些背景知识，下面的文字来源于《 &#8220;马克曼听证&#8221;制度的由来及启示 》 
+ 马克曼听证会   Markman Hearing 
+ 马克曼听证会的一些背景知识，下面的文字来源于《 &#8220;马克曼听证 制度的由来及启示 》 
  与美国专利诉讼的悠长历史相比，1996年才经美国最高法院确立的“马克曼听证”（Markman Hearing，也称为Claim Construction，即权利要求书的解释）无疑是一项年轻的制度。但由于几乎所有的专利侵权诉讼中都会遇到涉案专利权利要求书的解释这一核心问题，且因“马克曼听证”结果往往清楚地预示了案件结果，经“马克曼听证”获得有利结论的一方一旦据此向法庭提起不审即判的动议，专利侵权诉讼往往可就此快速了结，因此该制度的确立成为美国专利诉讼历史上的一件大事。 
  “马克曼听证”制度的由来 
  “马克曼听证”制度确立之前，在专利侵权诉讼中的权利要求书解释，通常交由陪审团在对案件事实进行裁决时一并做出，且并不会在诉讼文件上单独就陪审团这一问题的判断进行记录。1991年，马克曼（Markman）先生因认为其拥有的专利号为RE33054的“干洗衣物贮存及追踪控制装置”专利权被Westview公司所侵犯，遂向宾夕法尼亚州东区联邦地方法院提起了专利侵权诉讼。 
@@ -3617,7 +3617,7 @@ systemd───dockerd─┬─containerd─┬─3*[containerd-shim─┬─sl
  --> 
      关注CoolShell微信公众账号和微信小程序 
  
-  （转载本站文章请注明作者和出处  酷 壳 &#8211; CoolShell  ，请勿用于任何商业用途）  
+  （转载本站文章请注明作者和出处  酷 壳   CoolShell  ，请勿用于任何商业用途）  
  ——===  访问  酷壳404页面  寻找遗失儿童。  ===—— 
 
    相关文章       扎克伯格的一封信：关于Facebook IPO       Quora使用到的技术       程序员练级攻略（2018)  与我的专栏       Facebook 的系统架构       Facebook全球关系网       AWS 的 S3 故障回顾和思考     
@@ -3628,15 +3628,15 @@ systemd───dockerd─┬─containerd─┬─3*[containerd-shim─┬─sl
 	<url>https://coolshell.cn/articles/18094.html</url>
 	<title>如何免费的让网站启用HTTPS</title>
 	<content>  今天，我把CoolShell变成https的安全访问了。我承认这件事有点晚了，因为之前的HTTP的问题也有网友告诉我，被国内的电信运营商在访问我的网站时加入了一些弹窗广告。另外，HTTP的网站在搜索引擎中的rank会更低。所以，这事早就应该干了。现在用HTTP访问CoolShell会被得到一个 301 的HTTPS的跳转。下面我分享一下启用HTTPS的过程。 
- 我用的是  Let&#8217;s Encrypt 这个免费的解决方案。Let&#8217;s Encrypt 是一个于2015年推出的数字证书认证机构，将通过旨在消除当前手动创建和安装证书的复杂过程的自动化流程，为安全网站提供免费的SSL/TLS证书。这是由 互联网安全研究小组 （ISRG &#8211; Internet Security Research Group，一个公益组织）提供的服务。主要赞助商包括 电子前哨基金会 ， Mozilla基金会 ， Akamai 以及Cisco等公司（ 赞助商列表 ）。   
- 2015年6月，Let&#8217;s Encrypt得到了一个存储在硬件安全模块中的离线的RSA根证书。这个由IdenTrust证书签发机构交叉签名的根证书被用于签署两个证书。其中一个就是用于签发请求的证书，另一个则是保存在本地的证书，这个证书用于在上一个证书出问题时作备份证书之用。因为IdenTrust的CA根证书目前已被预置于主流浏览器中，所以Let&#8217;s Encrypt签发的证书可以从项目开始就被识别并接受，甚至当用户的浏览器中没有信任ISRG的根证书时也可以。 
+ 我用的是  Let s Encrypt 这个免费的解决方案。Let s Encrypt 是一个于2015年推出的数字证书认证机构，将通过旨在消除当前手动创建和安装证书的复杂过程的自动化流程，为安全网站提供免费的SSL/TLS证书。这是由 互联网安全研究小组 （ISRG   Internet Security Research Group，一个公益组织）提供的服务。主要赞助商包括 电子前哨基金会 ， Mozilla基金会 ， Akamai 以及Cisco等公司（ 赞助商列表 ）。   
+ 2015年6月，Let s Encrypt得到了一个存储在硬件安全模块中的离线的RSA根证书。这个由IdenTrust证书签发机构交叉签名的根证书被用于签署两个证书。其中一个就是用于签发请求的证书，另一个则是保存在本地的证书，这个证书用于在上一个证书出问题时作备份证书之用。因为IdenTrust的CA根证书目前已被预置于主流浏览器中，所以Let s Encrypt签发的证书可以从项目开始就被识别并接受，甚至当用户的浏览器中没有信任ISRG的根证书时也可以。 
     
- 以上介绍文字来自 Wikipedia 的  Let&#8217;s Encrypt 词条 。 
+ 以上介绍文字来自 Wikipedia 的  Let s Encrypt 词条 。 
  为你的网站来安装一个证书十分简单，只需要使用电子子前哨基金会EFF的  Certbot ，就可以完成。 
  1）首先，打开  https://certbot.eff.org  网页。 
  2）在那个机器上图标下面，你需要选择一下你用的 Web 接入软件 和你的 操作系统。比如，我选的， nginx  和  Ubuntu 14.04  
  3）然后就会跳转到一个安装教程网页。你就照着做一遍就好了。 
- 以Coolshell.cn为例 &#8211; Nginx + Ubuntu 
+ 以Coolshell.cn为例   Nginx + Ubuntu 
  首先先安装相应的环境： 
  
 $ sudo apt-get update
@@ -3667,7 +3667,7 @@ ssl_certificate /etc/letsencrypt/live/coolshell.cn/fullchain.pem; # managed by C
 ssl_certificate_key /etc/letsencrypt/live/coolshell.cn/privkey.pem; # managed by Certbot 
 include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot 
  然后，就  nginx -s reload  就好了。 
- 但是， Let&#8217;s Encrypt 的证书90天就过期了 ，所以，你还要设置上自动化的更新脚本，最容易的莫过于使用  crontab  了。使用  crontab -e  命令加入如下的定时作业（每个月都强制更新一下）： 
+ 但是， Let s Encrypt 的证书90天就过期了 ，所以，你还要设置上自动化的更新脚本，最容易的莫过于使用  crontab  了。使用  crontab -e  命令加入如下的定时作业（每个月都强制更新一下）： 
  0 0 1 * * /usr/bin/certbot renew --force-renewal
 5 0 1 * * /usr/sbin/service nginx restart 
  当然，你也可以每天凌晨1点检查一下： 
@@ -3679,7 +3679,7 @@ include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
  第3个字段：日期 (1-31) 
  第4个字段：月份 (1-12 [12 代表 December]) 
  第5个字段：一周当中的某天 (0-7 [7 或 0 代表星期天]) 
- /path/to/command &#8211; 计划执行的脚本或命令的名称 
+ /path/to/command   计划执行的脚本或命令的名称 
  
   这么方便的同时，我不禁要问，如果是一些恶意的钓鱼网站也让自己的站点变成https的，这个对于一般用来说就有点难以防范了。哎……  
  当然，在nginx或apache上启用HTTPS后，还没有结束。因为你可能还需要修改一下你的网站，不然你的网站在浏览时会出现各种问题。 
@@ -3695,7 +3695,7 @@ include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
  --> 
      关注CoolShell微信公众账号和微信小程序 
  
-  （转载本站文章请注明作者和出处  酷 壳 &#8211; CoolShell  ，请勿用于任何商业用途）  
+  （转载本站文章请注明作者和出处  酷 壳   CoolShell  ，请勿用于任何商业用途）  
  ——===  访问  酷壳404页面  寻找遗失儿童。  ===—— 
 
    相关文章       从“黑掉Github”学Web安全开发       关于移动端的钓鱼式攻击       HTTP API 认证授权术       你会做Web上的用户登录功能吗？       Web工程师的工具箱       bash代码注入的安全漏洞     
@@ -3706,7 +3706,7 @@ include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
 	<url>https://coolshell.cn/articles/18024.html</url>
 	<title>API设计原则 – Qt官网的设计实践总结</title>
 	<content>   （感谢好友  @李鼎  翻译此文）   
- 原文链接： API Design Principles  &#8211;  Qt Wiki  
+ 原文链接： API Design Principles     Qt Wiki  
 基于 Gary的影响力 上  Gary Gao  的译文稿： C++的API设计指导  
  译序 
    
@@ -3922,7 +3922,7 @@ QPointF mapFromItem (const QGraphicsItem *item, const QPointF  point) const;
  4.3.2 返回值：const值 
  调用函数返回的非引用类型的结果，称之为右值（R-value）。 
  非类（non-class）的右值总是无cv限定类型（cv-unqualified type）。虽然从语法上讲，加上const也可以，但是没什么意义，因为鉴于访问权限这些值是不能改变的。多数现代编译器在编译这样的代码时会提示警告信息。 
-  【译注】：cv-qualified的类型（与cv-unqualified相反）是由const或者volatile或者volatile const限定的类型。详见 cv (const and volatile) type qualifiers &#8211; C++语言参考   
+  【译注】：cv-qualified的类型（与cv-unqualified相反）是由const或者volatile或者volatile const限定的类型。详见 cv (const and volatile) type qualifiers   C++语言参考   
  当在类类型（class type）右值上添加const关键字，则禁止访问非const成员函数以及对成员的直接操作。 
  不加const则没有以上的限制，但几乎没有必要加上const，因为右值对象生存时间（life time）的结束一般在C++清理的时候（通俗的说，下一个分号地方），而对右值对象的修改随着右值对象的生存时间也一起结束了（也就是本条语句的执行完成的时候）。 
  示例： 
@@ -3984,7 +3984,7 @@ foreach (const QGraphicsItem *item, scene.items()) {
  在Qt中，我们几乎只有非const的使用模式。我们选择的是实用路子： 相比滥用非const指针返回类型带来的问题，返回const指针更可能招致过分使用const_cast的问题。 
  4.3.4 返回值：按值返回 还是 按const引用返回？ 
  若返回的是对象的拷贝，那么返回const引用是更直接的方案； 然而，这样的做法限制了后面想要对这个类的重构（refactor）。 （以 d-point 的典型做法（idiom）为例，我们可以在任何时候改变Qt类在内存表示（memory representation）；但却不能在不破坏二进制兼容性的情况下把改变函数的签名，返回值从 const QFoo   变为 QFoo 。） 基于这个原因，除去对运行速度敏感（speed is critical）而重构不是问题的个别情形（例如， QList::at() ），我们一般返回 QFoo 而不是 const QFoo   。 
-  【译注】：参看《Effective C++》中条款23：Don&#8217;t try to return a reference when you must return an object  
+  【译注】：参看《Effective C++》中条款23：Don t try to return a reference when you must return an object  
  4.4.5 const vs. 对象的状态 
  const正确性（Const correctness）的问题就像C圈子中vi与emacs的讨论，因为这个话题在很多地方都存在分歧（比如基于指针的函数）。 
  但通用准则是const函数不能改变类的可见状态。『状态』的意思是『自身以及涉及的职责』。这并不是指非const函数能够改变自身的私有成员，也不是指const函数改变不了。而是指函数是活跃的并存在可见的副作用（visible side effects）。const函数一般没有任何可见的副作用，比如： 
@@ -4251,7 +4251,7 @@ while ((child = it.current()) != 0) {
  --> 
      关注CoolShell微信公众账号和微信小程序 
  
-  （转载本站文章请注明作者和出处  酷 壳 &#8211; CoolShell  ，请勿用于任何商业用途）  
+  （转载本站文章请注明作者和出处  酷 壳   CoolShell  ，请勿用于任何商业用途）  
  ——===  访问  酷壳404页面  寻找遗失儿童。  ===—— 
 
    相关文章       从Gitlab误删除数据库想到的       关于高可用的系统       千万不要把 bool 设计成函数参数       Leetcode 编程训练       如何写出无法维护的代码       一个“蝇量级” C 语言协程库     
@@ -4263,7 +4263,7 @@ while ((child = it.current()) != 0) {
 	<title>Linux PID 1 和 Systemd</title>
 	<content>  要说清 Systemd，得先从Linux操作系统的启动说起。Linux 操作系统的启动首先从 BIOS 开始，然后由 Boot Loader 载入内核，并初始化内核。内核初始化的最后一步就是启动 init 进程。这个进程是系统的第一个进程，PID 为 1，又叫超级进程，也叫根进程。它负责产生其他所有用户进程。所有的进程都会被挂在这个进程下，如果这个进程退出了，那么所有的进程都被 kill 。如果一个子进程的父进程退了，那么这个子进程会被挂到 PID 1 下面。（注：PID 0 是内核的一部分，主要用于内进换页，参看： Process identifier ） 
  SysV Init 
- PID 1 这个进程非常特殊，其主要就任务是把整个操作系统带入可操作的状态。比如：启动 UI &#8211; Shell 以便进行人机交互，或者进入 X 图形窗口。传统上，PID 1 和传统的 Unix System V 相兼容的，所以也叫  sysvinit ，这是使用得最悠久的 init 实现。Unix System V 于1983年 release。 
+ PID 1 这个进程非常特殊，其主要就任务是把整个操作系统带入可操作的状态。比如：启动 UI   Shell 以便进行人机交互，或者进入 X 图形窗口。传统上，PID 1 和传统的 Unix System V 相兼容的，所以也叫  sysvinit ，这是使用得最悠久的 init 实现。Unix System V 于1983年 release。 
  在  sysvint  下，有好几个运行模式，又叫  runlevel 。比如：常见的 3 级别指定启动到多用户的字符命令行界面，5 级别指定启起到图形界面，0 表示关机，6 表示重启。其配置在  /etc/inittab  文件中。 
     
  与此配套的还有  /etc/init.d/  和  /etc/rc[X].d ，前者存放各种进程的启停脚本（需要按照规范支持  start ， stop 子命令），后者的 X 表示不同的 runlevel 下相应的后台进程服务，如： /etc/rc3.d  是 runlevel=3 的。 里面的文件主要是 link 到   /etc/init.d/  里的启停脚本。其中也有一定的命名规范：S 或 K 打头的，后面跟一个数字，然后再跟一个自定义的名字，如： S01rsyslog ， S02ssh 。S 表示启动，K表示停止，数字表示执行的顺序。 
@@ -4361,7 +4361,7 @@ while ((child = it.current()) != 0) {
  这篇契文很长，喜欢八卦的同学可以前往一读。感受一下 Lennart 当时的心态（我觉得能算上是非常平稳了）。 
  Linus也在被一媒体问起  systemd  这个事来（参看“ Torvalds says he has no strong opinions on systemd ”），Linus在采访里说， 
   我对  systemd  和 Lennart 的贴子没有什么强烈的想法。虽然，传统的 Unix 设计哲学—— “Do one thing and Do it well”，很不错，而且我们大多数人也实践了这么多年，但是这并不代表所有的真实世界。在历史上，也不只有 systemd  这么干过。但是，我个人还是 old-fashioned 的人，至少我喜欢文本式的日志，而不是二进制的日志。但是  systemd  没有必要一定要有这样的品味。哦，我说细节了……  
- 今天， systemd  占据了几乎所有的主流的 Linux 发行版的默认配置，包括：Arch Linux、CentOS、CoreOS、Debian、Fedora、Megeia、OpenSUSE、RHEL、SUSE企业版和 Ubuntu。而且，对于 CentOS, CoreOS, Fedora, RHEL, SUSE这些发行版来说，不能没有  systemd 。（Ubuntu 还有一个不错的wiki &#8211;  Systemd for Upstart Users  阐述了如何在两者间切换） 
+ 今天， systemd  占据了几乎所有的主流的 Linux 发行版的默认配置，包括：Arch Linux、CentOS、CoreOS、Debian、Fedora、Megeia、OpenSUSE、RHEL、SUSE企业版和 Ubuntu。而且，对于 CentOS, CoreOS, Fedora, RHEL, SUSE这些发行版来说，不能没有  systemd 。（Ubuntu 还有一个不错的wiki    Systemd for Upstart Users  阐述了如何在两者间切换） 
    
  其它 
  还记得在《 缓存更新的套路 》一文中，我说过， 如果你要做好架构，首先你得把计算机体系结构以及很多老古董的基础技术吃透了 。因为里面会有很多可以借鉴和相通的东西。那么，你是否从这篇文章里看到了一些有分布式架构相似的东西？ 
@@ -4381,7 +4381,7 @@ while ((child = it.current()) != 0) {
  --> 
      关注CoolShell微信公众账号和微信小程序 
  
-  （转载本站文章请注明作者和出处  酷 壳 &#8211; CoolShell  ，请勿用于任何商业用途）  
+  （转载本站文章请注明作者和出处  酷 壳   CoolShell  ，请勿用于任何商业用途）  
  ——===  访问  酷壳404页面  寻找遗失儿童。  ===—— 
 
    相关文章       vfork 挂掉的一个问题       Docker基础技术：AUFS       Docker基础技术：Linux Namespace（上）       Unix传奇(上篇)       Docker基础技术：Linux Namespace（下）       Docker基础技术：Linux CGroup     
@@ -4415,7 +4415,7 @@ while ((child = it.current()) != 0) {
  对公司和管理者想说的话 
  下面我来谈谈绩效考核我的一些观点。在谈这个观点前，你可以移步看一下这篇新闻报道——《 绩效主义毁了索尼 》。而近年来，“放弃绩效考核”的斗争已经从科技企业中的Adobe、戴尔、微软、亚马逊，席卷到德勤、埃森哲、普华永道等咨询服务类企业。甚至通用电气（GE）——曾经的绩效管理的鼻祖，也宣布抛弃正式的年度绩效考核。在刚过去的2016年，腾讯的张小龙对微信事业群发出“警惕KPI”的呼声；李彦宏在内部信中将百度的掉队归咎于“从管理层到员工对短期KPI的追逐”；雷军干脆宣布小米“继续坚持‘去KPI’的战略，放下包袱，解掉绳索，开开心心地做事。”；王石也在个人微博中感慨：“绩效主义像企业的脓包”。 
  绩效考核在本质上就是像学校教育以分数论英雄，而忽略员工的成长和素质教育是一个道理。当学生和老师只关注考试分数时，而只有考试分数来评价老师和学生的优良中差时，老师和学生就会开始使用一些非常形式的方式来达到这个目标，比如：死记硬被，记套路，题海战术…… 而学习的能力的考评彻底地沦为了一种形式主义。反而，分数考的越高，脑子越死。（注：美国现行教育是不允许通过学生考试成绩来评价老师的能力的） 
- 近几年来，一些大公司开始使用 OKR &#8211; Objectives, Key Result ，但是在实践过程中，我发现好些公司用OKR，本质上还是KPI &#8211; Key Performance Indicator， 因为OKR里面有一个Key Result，用来衡量 Objectives 的结果指标。于是，使用者习惯性的设置上了KPI。 我个人认为 OKR 有三个非常大的特性：0）由员工提出，1）以目标为导向。2）全员共享。  
+ 近几年来，一些大公司开始使用 OKR   Objectives, Key Result ，但是在实践过程中，我发现好些公司用OKR，本质上还是KPI   Key Performance Indicator， 因为OKR里面有一个Key Result，用来衡量 Objectives 的结果指标。于是，使用者习惯性的设置上了KPI。 我个人认为 OKR 有三个非常大的特性：0）由员工提出，1）以目标为导向。2）全员共享。  
  举个例子，OKR可能会是制定成下面这个样子的： 
  Objectives：增强用户体验， 
  Key Results： 
@@ -4456,7 +4456,7 @@ while ((child = it.current()) != 0) {
  --> 
      关注CoolShell微信公众账号和微信小程序 
  
-  （转载本站文章请注明作者和出处  酷 壳 &#8211; CoolShell  ，请勿用于任何商业用途）  
+  （转载本站文章请注明作者和出处  酷 壳   CoolShell  ，请勿用于任何商业用途）  
  ——===  访问  酷壳404页面  寻找遗失儿童。  ===—— 
 
    相关文章       什么是工程师文化？       技术人员的发展之路       从Code Review 谈如何做技术       关于高可用的系统       让我们来谈谈分工       「我只是认真」聊聊工匠情怀     

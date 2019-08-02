@@ -133,7 +133,7 @@ std::map<std::string, int> & WebPage::getWordsMap()
 void WebPage::processDoc(const std::string& doc, Configuration& config, SplitTool& splitTool)
 {
     auto wordsVec = splitTool.cut(doc);
-    calcTopK(wordsVec, TOPK_NUMBER, config.getStopWordList());
+    calcTopK(wordsVec, TOPK_NUMBER, config.getStopWords());
 
     string::size_type pos, pos_next ;
     if((pos = doc.find("<docid>", 0)) != string::npos)
@@ -189,31 +189,38 @@ void WebPage::processDoc(const std::string& doc, Configuration& config, SplitToo
 }
 
 
-void WebPage::calcTopK(std::vector<std::string> & wordsVec, int k, std::set<std::string> & stopWordList)
+void WebPage::calcTopK(std::vector<std::string> & wordsVec, int k, std::set<std::string> & stopWords)
 {
     for(auto iter = wordsVec.begin(); iter != wordsVec.end(); ++iter)
     {
-        if(stopWordList.find(*iter) == stopWordList.end())
+        if(stopWords.find(*iter) == stopWords.end())
         {
-            ++m_wordsMap[*iter];
+            if(!isspace((*iter)[0]))
+            {
+                ++m_wordsMap[*iter];
+            }else{
+                logError("--");
+            }
         }
     }
-    //会读入空格，换行，tab
-    m_wordsMap.erase(string(" "));
-    m_wordsMap.erase(string("\n"));
-    m_wordsMap.erase(string("\t"));
 
+    if(m_wordsMap.find(" ") != m_wordsMap.end())
+    {
+        logError("$%s$", m_wordsMap.find(" ")->first.c_str());
+    }
     vector<std::pair<string, int>> tmpVec(m_wordsMap.begin(), m_wordsMap.end());
+
     sort(tmpVec.begin(),tmpVec.end(), 
-        [](const std::pair<string, int>& lhs, const std::pair<string, int> & rhs) { return lhs.second > rhs.second;}
+         [](const std::pair<string, int>& lhs, const std::pair<string, int> & rhs) { return lhs.second > rhs.second;}
         );
 
-
+    
     for(auto& pair_si : tmpVec)
     {
+
         m_topWords.push_back(pair_si.first);
 
-        //logInfo("%s-->%ld", pair_si.first.c_str(), pair_si.second);
+        logInfo("%s-->%ld", pair_si.first.c_str(), pair_si.second);
 
         if(--k == 0)
         {

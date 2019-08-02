@@ -10,7 +10,7 @@ using std::map;
 using std::set;
 using std::string;
 
-#define PAGELIBPRO_DEBUG 1
+#define PAGELIBPRO_DEBUG 0
 
 namespace wd
 {
@@ -98,6 +98,7 @@ void PageLibPreprocessor::buildInvertIndexTable()
     //先建立词语与文档id的联系，保存词语在对应文档的次数
     for(auto& page : m_pageLib)
     {
+        //logInfo("%d", page.getDocId());
         for(auto& wordFreq : page.getWordsMap())
         {
             m_invertIndexTable[wordFreq.first].push_back(std::make_pair(
@@ -156,8 +157,35 @@ void PageLibPreprocessor::storeOnDisk()
 
     for(auto& page : m_pageLib)
     {
+        int id = page.getDocId();
+        int length = page.getDoc().size();
+        ofstream::pos_type offset = ofs_pageLib.tellp();
+        ofs_pageLib << page.getDoc();
 
+        ofs_offsetLib << id << '\t' << offset << '\t' << length << '\n';
     }
+
+    ofs_pageLib.close();
+    ofs_offsetLib.close();
+
+    //invertIndexTable
+    ofstream ofs_invertIndexTable(m_conf.getConfigMap().at("invertIndexTable"));
+
+    if(!ofs_invertIndexTable.good())
+    {
+        logError("invert index table open error");
+    }
+    for(auto& item : m_invertIndexTable)
+    {
+        ofs_invertIndexTable << item.first << "\t";
+        for(auto& sItem : item.second)
+        {
+            ofs_invertIndexTable << sItem.first << "\t" << sItem.second << '\t';
+        }
+        ofs_invertIndexTable << '\n';
+    }
+
+    ofs_invertIndexTable.close();
 }
 
 

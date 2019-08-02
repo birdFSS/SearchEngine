@@ -36,7 +36,7 @@ public:
 
 private:
     void processDoc(const std::string& doc, Configuration& config, SplitTool& splitTool);
-    void calcTopK(std::vector<std::string> & wordsVec, int k, std::set<std::string> & stopWordList);
+    void calcTopK(std::vector<std::string> & wordsVec, int k, std::set<std::string> & stopWords);
 
 private:
     const static int    TOPK_NUMBER = 10;

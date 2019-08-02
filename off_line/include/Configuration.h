@@ -30,9 +30,17 @@ public:
             std::string word;
             while(ifs >> word)
             {
-                m_stopWordList.insert(word);
+                m_stopWords.insert(word);
             }
         }
+        //删除空格和换行和tab
+        m_stopWords.insert(std::string(" "));
+        std::string full_space("\xc2\xa0");
+        m_stopWords.insert(full_space);
+
+        //logError("$%s$", full_space.c_str());
+        m_stopWords.insert(std::string("\n"));
+        m_stopWords.insert(std::string("\t"));
     }
 
     ~Configuration() {}
@@ -42,9 +50,9 @@ public:
         return m_configMap;
     }
 
-    std::set<std::string> & getStopWordList()
+    std::set<std::string> & getStopWords()
     {
-        return m_stopWordList;
+        return m_stopWords;
     }
 
 private:
@@ -62,7 +70,7 @@ private:
     
 private:
     std::string m_fileName;
-    std::set<std::string> m_stopWordList;
+    std::set<std::string> m_stopWords;
     std::map<std::string, std::string> m_configMap;
 };
 
