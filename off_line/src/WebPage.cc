@@ -48,7 +48,7 @@ WebPage::WebPage(std::string&& doc, Configuration & config, SplitTool &  splitTo
     processDoc(m_doc, config, splitTool);
 }
 
-int WebPage::getDocld()
+int WebPage::getDocId()
 {
     return m_docId;
 }

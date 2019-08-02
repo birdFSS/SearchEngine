@@ -18,7 +18,7 @@ public:
     WebPage(std::string&& doc, Configuration & config, SplitTool & splitTool);
     ~WebPage() {}
 
-    int getDocld();
+    int getDocId();
     std::string getDoc();
 
     std::map<std::string, int> & getWordsMap();
