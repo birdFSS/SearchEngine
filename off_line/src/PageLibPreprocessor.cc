@@ -68,17 +68,16 @@ void PageLibPreprocessor::cutRedundantPages()
     {
         for(auto j=i+1;j != back_iter; ++j)
         {
+            //logInfo("*i == %d\n*j == %d", i->getDocId(), j->getDocId());
             if(*i == *j)
             {
                 --back_iter;
                 if(j != back_iter)
                 {
                     //不需要交换，因为*j是不需要的
-                    //auto temp = *j;
-                    *j = *back_iter;
-                    //*back_iter = temp;
-                    --j;
+                    *j = std::move(*back_iter);
                 }
+                --j;
             }
         }
     }

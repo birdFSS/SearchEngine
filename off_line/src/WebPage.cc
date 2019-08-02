@@ -48,6 +48,70 @@ WebPage::WebPage(std::string&& doc, Configuration & config, SplitTool &  splitTo
     processDoc(m_doc, config, splitTool);
 }
 
+#if 0       //使用=default代替
+WebPage::WebPage(const WebPage& rhs) :
+    m_doc(rhs.m_doc),
+    m_docId(rhs.m_docId),
+    m_docTitle(rhs.m_docTitle),
+    m_docUrl(rhs.m_docUrl),
+    m_docContent(rhs.m_docContent),
+    m_docSummary(rhs.m_docSummary),
+    m_topWords(rhs.m_topWords.begin(), rhs.m_topWords.end()),
+    m_wordsMap(rhs.m_wordsMap.begin(), rhs.m_wordsMap.end())
+{
+
+}
+
+#endif
+WebPage::WebPage(WebPage&& rhs) noexcept
+{
+        m_doc.swap(rhs.m_doc);
+        m_docId = rhs.m_docId;
+        m_docTitle.swap(rhs.m_docTitle);
+        m_docUrl.swap(rhs.m_docUrl);
+        m_docContent.swap(rhs.m_docContent);
+        m_docSummary.swap(rhs.m_docSummary);
+        m_topWords.swap(rhs.m_topWords);
+        m_wordsMap.swap(rhs.m_wordsMap);
+}
+
+WebPage& WebPage::operator=(const WebPage& page) 
+{
+    if(this != &page)
+    {
+        m_doc = page.m_doc;
+        m_docId = page.m_docId;
+        m_docTitle = page.m_docTitle;
+        m_docUrl = page.m_docUrl;
+        m_docContent = page.m_docContent;
+        m_docSummary = page.m_docSummary;
+        m_topWords.assign(m_topWords.begin(), m_topWords.end());
+        m_wordsMap.clear();
+        for(auto& i : page.m_wordsMap)
+        {
+            m_wordsMap.insert(i);
+        }
+    }
+    return *this;
+}
+
+WebPage& WebPage::operator=(WebPage&& page) noexcept
+{
+    if(this != &page)
+    {
+        m_doc.swap(page.m_doc);
+        m_docId = page.m_docId;
+        m_docTitle.swap(page.m_docTitle);
+        m_docUrl.swap(page.m_docUrl);
+        m_docContent.swap(page.m_docContent);
+        m_docSummary.swap(page.m_docSummary);
+        m_topWords.swap(page.m_topWords);
+        m_wordsMap.swap(page.m_wordsMap);
+    }
+
+    return *this;
+}
+
 int WebPage::getDocId()
 {
     return m_docId;

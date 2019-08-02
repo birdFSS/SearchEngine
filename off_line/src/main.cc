@@ -46,9 +46,9 @@ int main()
     //test0();
     //test1();
     //test2();
-    format();
+    //format();
     //testWebPage();
-    //test_duplicate();
+    test_duplicate();
     return 0;
 }
 

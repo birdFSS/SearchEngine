@@ -18,12 +18,20 @@ public:
     WebPage(std::string&& doc, Configuration & config, SplitTool & splitTool);
     ~WebPage() {}
 
+    WebPage(const WebPage& rhs) = default;
+    WebPage(WebPage&& rhs) noexcept; 
+
+    WebPage& operator=(const WebPage& page);
+    WebPage& operator=(WebPage&& page) noexcept;
+
     int getDocId();
     std::string getDoc();
 
     std::map<std::string, int> & getWordsMap();
 
     void show() const;
+
+
 
 private:
     void processDoc(const std::string& doc, Configuration& config, SplitTool& splitTool);
@@ -39,7 +47,6 @@ private:
     std::string         m_docSummary;
     std::vector<std::string>       m_topWords;
     std::map<std::string, int>     m_wordsMap;
-
 };
 
 
