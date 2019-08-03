@@ -7,7 +7,7 @@
 #include <string>
 #include <memory>
 #define TRAIN_HEAD 4
-#define TRAIN_BUF_SIZE 2048
+#define TRAIN_BUF_SIZE 65536
 
 using std::string;
 namespace wd

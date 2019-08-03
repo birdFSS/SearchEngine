@@ -227,19 +227,10 @@ void WebPage::calcTopK(std::vector<std::string> & wordsVec, int k, std::set<std:
     {
         if(stopWords.find(*iter) == stopWords.end())
         {
-            if(!isspace((*iter)[0]))
-            {
-                ++m_wordsMap[*iter];
-            }else{
-                logError("--");
-            }
+            ++m_wordsMap[*iter];
         }
     }
 
-    if(m_wordsMap.find(" ") != m_wordsMap.end())
-    {
-        logError("$%s$", m_wordsMap.find(" ")->first.c_str());
-    }
     vector<std::pair<string, int>> tmpVec(m_wordsMap.begin(), m_wordsMap.end());
 
     sort(tmpVec.begin(),tmpVec.end(), 

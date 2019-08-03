@@ -26,11 +26,16 @@ std::string WordQuery::doQuery(const std::string& str)
     {
         queryWords = m_jieba.cut(str);
     }
-    //excuteQuery(queryWords, result);
     
+    auto& stopWords = m_conf.getStopWords();
     for(auto& item : queryWords)
     {
-        std::cout << item << '\n';
+        logInfo("%s", item.c_str());
+        if(stopWords.find(item) != stopWords.end())
+        {
+            continue;
+        }
+
         auto uit = m_invertIndexTable.find(item);
         if(uit == m_invertIndexTable.end())
         {
@@ -114,7 +119,7 @@ vector<double> WordQuery::getQueryWordsWeightVector(vector<string> & queryWords)
     map<string, int> queryWordMap;
     for(size_t i=0;i < queryWords.size(); ++i)
     {
-            ++queryWordMap[queryWords[i]];
+        ++queryWordMap[queryWords[i]];
     }
     
     int totalPageNum = m_offsetLib.size();
@@ -219,7 +224,7 @@ bool WordQuery::excuteQuery(const std::vector<std::string> & queryWords,
 std::string WordQuery::createJson(std::vector<int> & docIdVec, const std::vector<std::string> & queryWords)
 {
     Json::Value root;
-    Json::Value arr;;
+    Json::Value arr;
     int cnt = 0;
     for(auto id : docIdVec)
     {
@@ -241,6 +246,7 @@ std::string WordQuery::createJson(std::vector<int> & docIdVec, const std::vector
     root["files"] = arr;
     Json::StyledWriter writer;
     return writer.write(root);
+    return string(" ");
 }
 
 std::string WordQuery::returnNoAnswer()

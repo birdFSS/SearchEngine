@@ -14,9 +14,10 @@ class WebPage
     friend bool operator==(const WebPage& lhs, const WebPage& rhs);
     friend bool operator<(const WebPage& lhs, const WebPage& rhs);
 public:
+    WebPage() = default;
     WebPage(const std::string& doc, Configuration & config, SplitTool & splitTool);
     WebPage(std::string&& doc, Configuration & config, SplitTool & splitTool);
-    ~WebPage() {}
+    ~WebPage() = default; 
 
     WebPage(const WebPage& rhs) = default;
     WebPage(WebPage&& rhs) noexcept; 
@@ -28,7 +29,7 @@ public:
     void setDocId(int i) { m_docId = i; }
     std::string getTitle() { return m_docTitle; }
     std::string getUrl() { return m_docUrl; }
-    std::string summary(const std::vector<std::string> &queryWords);
+    std::string summary(const std::vector<std::string> & queryWords);
     std::string getDoc();
 
     std::map<std::string, int> & getWordsMap();

@@ -1,7 +1,7 @@
 #pragma once
 #include "InetAddress.h"
 #include <string>
-#define TRAIN_BUF_SIZE 2048
+#define TRAIN_BUF_SIZE 65536
 #define TRAIN_HEAD_SIZE 4
 
 namespace wd

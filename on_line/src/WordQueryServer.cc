@@ -30,12 +30,19 @@ void WordQueryServer::onMessage(const wd::TcpConnectionPtr & conn)
     string msg = conn->receive();       
     logInfo(">> receive msg from client : %s", msg.c_str());
     
-    wd::MyTask task(msg,conn->getPeerFd(),conn);
     m_threadpool.addTask(
-        std::bind(&wd::MyTask::excute, task)
+        std::bind(&WordQueryServer::doTaskThread, this, conn, msg)
         );
 }
 
+
+void WordQueryServer::doTaskThread(const TcpConnectionPtr& conn, const string& msg)
+{
+    string ret = m_wordQuery.doQuery(msg);
+    int sz = ret.size();
+    logInfo("result size=%d", sz);
+    conn->sendInLoop(ret);
+}
 
 void WordQueryServer::start()
 {

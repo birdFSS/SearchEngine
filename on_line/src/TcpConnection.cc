@@ -53,13 +53,17 @@ string TcpConnection::toString() const
     return oss.str();
 }
 
-void TcpConnection::send(const string& msg)
+void TcpConnection::send(const string& msg) //当数据过大怎么处理
 {
+    int len = msg.size() + TRAIN_HEAD;
+#if 0
     Train info;
     ::bzero(&info, sizeof(Train));
     info._size = msg.size() + TRAIN_HEAD;
     strcpy(info._buf, msg.c_str());
-    m_socketIO.writen(reinterpret_cast<char*>(&info), info._size); 
+#endif
+    m_socketIO.writen((char*)&len, TRAIN_HEAD);
+    m_socketIO.writen(msg.c_str(), msg.size()); 
 }
 
 void TcpConnection::shutdown()

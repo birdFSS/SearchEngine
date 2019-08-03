@@ -9,10 +9,18 @@ namespace wd
 
 string ClientIO::recvFromServer()
 {
+#if 0
     Train train;
     readn(reinterpret_cast<char*>(&train), TRAIN_HEAD_SIZE);
     readn(train._buf, train._size - TRAIN_HEAD_SIZE);
-    return string(train._buf);
+#endif
+    int _size = 0;
+    readn((char*)&_size, sizeof(int));
+    char * buf = new char[_size - TRAIN_HEAD_SIZE]();
+    readn(buf, _size - TRAIN_HEAD_SIZE);
+    string tmpBuf(buf);
+    delete [] buf;
+    return tmpBuf;
 }
 
 void ClientIO::sendToServer(const char *msg)
