@@ -1,7 +1,6 @@
 #include "../include/WordQueryServer.h"
 #include "../include/CacheManager.h"
 #include "../include/TimerThread.h"
-#include "../include/MyTask.h"
 #include "../include/Mylog.h"
 #include <string>
 #include <iostream>
@@ -27,7 +26,9 @@ void WordQueryServer::onMessage(const wd::TcpConnectionPtr & conn)
 {
     //该回调函数实际不宜过长 2ms
     //cout << "onMessage..." << endl;
-    string msg = conn->receive();       
+    string msg(conn->receive());       
+    size_t pos = msg.find('\n');
+    msg = msg.substr(0, pos);
     logInfo(">> receive msg from client : %s", msg.c_str());
     
     m_threadpool.addTask(
@@ -40,8 +41,10 @@ void WordQueryServer::doTaskThread(const TcpConnectionPtr& conn, const string& m
 {
     string ret = m_wordQuery.doQuery(msg);
     int sz = ret.size();
-    logInfo("result size=%d", sz);
-    conn->sendInLoop(ret);
+    string message(std::to_string(sz));
+    message.append("\n").append(ret);
+    logInfo(">%s", message.c_str());
+    conn->sendInLoop(message);
 }
 
 void WordQueryServer::start()

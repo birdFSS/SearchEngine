@@ -38,11 +38,14 @@ void TcpConnection::sendInLoop(const string& msg)
 
 string TcpConnection::receive()
 {
-    Train msg;
-    ::bzero(&msg, sizeof(Train));
-    m_socketIO.readn(reinterpret_cast<char*>(&msg), TRAIN_HEAD);
-    m_socketIO.readn(msg._buf, msg._size - TRAIN_HEAD);  //修改后
-    return string(msg._buf);
+    char buf[1024] = {0};
+    size_t ret = m_socketIO.readline(buf, sizeof(buf));  //修改后
+    if(0 == ret)
+    {
+        return std::string();
+    }else{
+        return string(buf);
+    }
 }
 
 string TcpConnection::toString() const
@@ -55,14 +58,6 @@ string TcpConnection::toString() const
 
 void TcpConnection::send(const string& msg) //当数据过大怎么处理
 {
-    int len = msg.size() + TRAIN_HEAD;
-#if 0
-    Train info;
-    ::bzero(&info, sizeof(Train));
-    info._size = msg.size() + TRAIN_HEAD;
-    strcpy(info._buf, msg.c_str());
-#endif
-    m_socketIO.writen((char*)&len, TRAIN_HEAD);
     m_socketIO.writen(msg.c_str(), msg.size()); 
 }
 

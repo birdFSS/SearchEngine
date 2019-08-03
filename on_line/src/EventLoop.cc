@@ -1,6 +1,7 @@
 #include "../include/EventLoop.h"
 #include "../include/Acceptor.h"
 #include "../include/TcpConnection.h"
+#include "../include/Mylog.h"
 #include <unistd.h>
 #include <assert.h>
 #include <string.h>
@@ -40,7 +41,7 @@ void EventLoop::handleRead()
 void EventLoop::wakeup()
 {
     uint64_t one = 1;
-    printf("EventLoop::wakeup()\n");
+    //printf("EventLoop::wakeup()\n");
     int ret = ::write(m_eventfd, &one, sizeof(one));
     if(ret != sizeof(one))
     {
@@ -143,9 +144,9 @@ void EventLoop::waitEpollFd()
                 if(m_eventList[idx].events & EPOLLIN)
                 {
                     handleRead();
-                    cout << ">> before doPendingFunctors()" << endl;
+                    logInfo("before doPendingFunctors");
                     doPendingFunctors();
-                    cout << ">> after doPendingFunctors()" << endl;
+                    logInfo("before doPendingFunctors");
                 }
             }else{
                 if(m_eventList[idx].events & EPOLLIN) //处理消息
