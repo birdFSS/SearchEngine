@@ -1,6 +1,8 @@
 #include "../include/WordQuery.h"
 #include "../include/Mylog.h"
 #include <json/json.h>
+#include <set>
+using std::set;
 using std::map;
 using std::make_pair;
 using std::string;
@@ -38,7 +40,7 @@ std::string WordQuery::doQuery(const std::string& str)
     }
 
     vector<double> weightVec = getQueryWordsWeightVector(queryWords);
-    SimilarityCompare similarityCmp(weightList);
+    SimilarityCompare similarityCmp(weightVec);
 
     vector<pair<int, vector<double>>> resultVec;
     if(excuteQuery(queryWords, resultVec))
@@ -97,7 +99,7 @@ void WordQuery::loadLibarary()
     {
         std::istringstream iss(line);
         iss >> word;
-        std::set<pair<int, double>> setID;
+        set<pair<int, double>> setID;
         while(iss >> docId >> weight)
         {
             setID.insert(make_pair(docId, weight));
@@ -140,7 +142,78 @@ vector<double> WordQuery::getQueryWordsWeightVector(vector<string> & queryWords)
 bool WordQuery::excuteQuery(const std::vector<std::string> & queryWords,
                  std::vector<std::pair<int, std::vector<double>>> & resultVec)
 {
+    if(queryWords.size() == 0)
+    {
+        logError("empty string not find");
+        return false;
+    }
 
+    typedef set<pair<int, double>>::iterator setIter;
+    vector<pair<setIter, int>> iterVec;
+    int minIterNum = 0x7FFFFFFF;
+    for(auto item : queryWords)
+    {
+        int sz = m_invertIndexTable[item].size();
+        if(0 == sz)
+        {
+            return false;
+        }
+
+        if(minIterNum > sz)
+        {
+            minIterNum = sz;
+        }
+
+        iterVec.push_back(make_pair(m_invertIndexTable[item].begin(), 0));
+    }
+
+    bool isExiting = false;
+
+    while(!isExiting)
+    {
+        size_t idx = 0;
+        for(;idx != iterVec.size() - 1; ++idx)
+        {
+            if((iterVec[idx].first)->first != iterVec[idx + 1].first->first)
+                break;
+        }
+
+        if(idx == iterVec.size() - 1)
+        {
+            vector<double> weightVec;
+            int docId = iterVec[0].first->first;
+            for(idx = 0; idx != iterVec.size(); ++ idx)
+            {
+                weightVec.push_back(iterVec[idx].first->second);
+                ++(iterVec[idx].first);
+                ++(iterVec[idx].second);
+                if(iterVec[idx].second == minIterNum)
+                {
+                    isExiting = true;
+                }
+            }
+            resultVec.push_back(make_pair(docId, weightVec));
+        }else{
+            int minDocId = 0x7FFFFFFF;
+            int iterIdx;
+            for(idx = 0; idx != iterVec.size(); ++idx)
+            {
+                if(iterVec[idx].first->first < minDocId)
+                {
+                    minDocId = iterVec[idx].first->first;
+                    iterIdx = idx;
+                }
+            }
+
+            ++(iterVec[iterIdx].first);
+            ++(iterVec[iterIdx].second);
+            if(iterVec[iterIdx].second == minIterNum)
+            {
+                isExiting = true;
+            }
+        }
+    }
+    return true;
 }
 
 std::string WordQuery::createJson(std::vector<int> & docIdVec, const std::vector<std::string> & queryWords)

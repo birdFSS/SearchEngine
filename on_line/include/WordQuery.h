@@ -11,6 +11,39 @@
 namespace wd
 {
 
+struct SimilarityCompare
+{
+    SimilarityCompare(std::vector<double> & base) :
+        m_base(base)
+    {}
+
+    bool operator()(const std::pair<int, std::vector<double>> & lhs, 
+                  const std::pair<int, std::vector<double>> &rhs)
+    {
+        double lhsCrossProduct = 0;
+        double rhsCrossProduct = 0;
+        double lhsVectorLength = 0;
+        double rhsVectorLength = 0;
+
+        for(size_t index = 0; index != m_base.size(); ++index)
+        {
+            lhsCrossProduct += (lhs.second)[index] * m_base[index];
+            rhsCrossProduct += (rhs.second)[index] * m_base[index];
+            lhsVectorLength += pow((lhs.second)[index], 2);
+            rhsVectorLength += pow((rhs.second)[index], 2);
+        }
+
+        if(lhsCrossProduct / sqrt(lhsVectorLength) < rhsCrossProduct / sqrt(rhsVectorLength))
+        {
+            return false;
+        }else{
+            return true;
+        }
+    }
+    std::vector<double> m_base;
+        
+};
+
 class WordQuery
 {
 public:

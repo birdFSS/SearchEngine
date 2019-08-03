@@ -39,7 +39,7 @@ void WordQueryServer::onMessage(const wd::TcpConnectionPtr & conn)
 
 void WordQueryServer::start()
 {
-    auto& config = m_conf.getConfig();
+    auto& config = m_conf.getConfigMap();
     
     //初始化缓存,可以考虑设置一个标记位，判断是否init过，避免一些情况
     auto pCacheMana = CacheManager::getInstance();

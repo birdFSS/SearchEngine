@@ -72,7 +72,7 @@ string WebPage::summary(const std::vector<std::string> &queryWords)
     string line;
     while(iss >> line)
     {
-        for(auto word : queryWords)
+        for(auto& word : queryWords)
         {
             if(line.find(word) != string::npos)
             {
