@@ -63,6 +63,38 @@ WebPage::WebPage(const WebPage& rhs) :
 }
 
 #endif
+
+string WebPage::summary(const std::vector<std::string> &queryWords)
+{
+    vector<string> summaryVec;
+
+    std::istringstream iss(m_docContent);
+    string line;
+    while(iss >> line)
+    {
+        for(auto word : queryWords)
+        {
+            if(line.find(word) != string::npos)
+            {
+                summaryVec.push_back(line);
+                break;
+            }
+        }
+
+        if(summaryVec.size() >= 5)
+        {
+            break;
+        }
+    }
+
+    string summary;
+    for(auto& line : summaryVec)
+    {
+        summary.append(line).append("\n");
+    }
+    return summary;
+}
+
 WebPage::WebPage(WebPage&& rhs) noexcept
 {
     //logInfo("WebPage::WebPage(WebPage&& rhs) noexcept");

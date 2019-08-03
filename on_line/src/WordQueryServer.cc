@@ -1,4 +1,4 @@
-#include "../include/SpellcorrectServer.h"
+#include "../include/WordQueryServer.h"
 #include "../include/CacheManager.h"
 #include "../include/TimerThread.h"
 #include "../include/MyTask.h"
@@ -13,17 +13,17 @@ using std::endl;
 namespace wd
 {
 
-void SpellcorrectServer::onConnection(const wd::TcpConnectionPtr & conn)
+void WordQueryServer::onConnection(const wd::TcpConnectionPtr & conn)
 {
     logInfo("%s has connected!", conn->toString().c_str());
 }
 
-void SpellcorrectServer::onClose(const wd::TcpConnectionPtr & conn)
+void WordQueryServer::onClose(const wd::TcpConnectionPtr & conn)
 {
     logInfo(">> %s has closed!", conn->toString().c_str());
 }
 
-void SpellcorrectServer::onMessage(const wd::TcpConnectionPtr & conn)
+void WordQueryServer::onMessage(const wd::TcpConnectionPtr & conn)
 {
     //该回调函数实际不宜过长 2ms
     //cout << "onMessage..." << endl;
@@ -37,7 +37,7 @@ void SpellcorrectServer::onMessage(const wd::TcpConnectionPtr & conn)
 }
 
 
-void SpellcorrectServer::start()
+void WordQueryServer::start()
 {
     auto& config = m_conf.getConfig();
     
@@ -52,9 +52,9 @@ void SpellcorrectServer::start()
     timerThread.start();
 
     using namespace std::placeholders;
-    m_tcpServer.setConnectionCallBack(std::bind(&SpellcorrectServer::onConnection, this, _1));
-    m_tcpServer.setMessageCallBack(std::bind(&SpellcorrectServer::onMessage, this, _1));
-    m_tcpServer.setCloseCallBack(std::bind(&SpellcorrectServer::onClose, this, _1));
+    m_tcpServer.setConnectionCallBack(std::bind(&WordQueryServer::onConnection, this, _1));
+    m_tcpServer.setMessageCallBack(std::bind(&WordQueryServer::onMessage, this, _1));
+    m_tcpServer.setCloseCallBack(std::bind(&WordQueryServer::onClose, this, _1));
     
 
     m_tcpServer.start();

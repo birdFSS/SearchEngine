@@ -68,10 +68,8 @@ void PageLibPreprocessor::cutRedundantPages()
                 if(*i < *j)       //i优先级大于j(i的序号小于j),保留i
                 {
                     //if(j != back_iter)    //WebPage 移动构造函数 能够处理自复制问题
-                    //{
-                        //不需要交换，因为*j是不需要的
-                        *j = std::move(*back_iter);
-                    //}
+                    //不需要交换，因为*j是不需要的
+                    *j = std::move(*back_iter);
                     --j;
                 }else{
                     *i = std::move(*j);
@@ -93,6 +91,8 @@ void PageLibPreprocessor::cutRedundantPages()
     }
 }
 
+
+//包含停用词外文章中所有词
 void PageLibPreprocessor::buildInvertIndexTable()
 {
     //先建立词语与文档id的联系，保存词语在对应文档的次数
