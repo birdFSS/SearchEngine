@@ -1,5 +1,5 @@
 #include "../include/WordQueryServer.h"
-#include "../include/CacheManager.h"
+#include "../include/MyRedis.h"
 #include "../include/TimerThread.h"
 #include "../include/Mylog.h"
 #include <string>
@@ -39,28 +39,39 @@ void WordQueryServer::onMessage(const wd::TcpConnectionPtr & conn)
 
 void WordQueryServer::doTaskThread(const TcpConnectionPtr& conn, const string& msg)
 {
-    string ret = m_wordQuery.doQuery(msg);
-    int sz = ret.size();
-    string message(std::to_string(sz));
-    message.append("\n").append(ret);
-    logInfo(">%s", message.c_str());
-    conn->sendInLoop(message);
+    MyRedis* cache = MyRedis::getInstance();
+    string message =cache->get(msg.c_str());
+    //cache->set("321", "15\n nihao \n who");//可以成功
+    if(message == string("-1"))
+    {
+
+        string ret = m_wordQuery.doQuery(msg);
+        int sz = ret.size();
+        string mess(std::to_string(sz));
+        mess.append("\n").append(ret);
+        cache->set(msg, mess);
+        conn->sendInLoop(mess);
+    }else{
+        conn->sendInLoop(message);
+    }
 }
 
 void WordQueryServer::start()
 {
+    //使用redis不用自身的Cache了
+#if 0
     auto& config = m_conf.getConfigMap();
-    
     //初始化缓存,可以考虑设置一个标记位，判断是否init过，避免一些情况
     auto pCacheMana = CacheManager::getInstance();
     pCacheMana->initCache(stoi(config.at("threadNum")), config.at("cacheFilePath"));
-
+#endif
     m_threadpool.start();
+#if 0
     TimerThread timerThread(stoi(config.at("initTime")), 
                             stoi(config.at("intervalTime")),
                             std::bind(&CacheManager::periodicUpdateCaches, pCacheMana));
     timerThread.start();
-
+#endif
     using namespace std::placeholders;
     m_tcpServer.setConnectionCallBack(std::bind(&WordQueryServer::onConnection, this, _1));
     m_tcpServer.setMessageCallBack(std::bind(&WordQueryServer::onMessage, this, _1));
